@@ -5,3 +5,9 @@
 `docker run -p 3000:3000 (-d) (-it) webapp`
 
 
+## Build docker-compose
+`docker-compose build`
+
+
+## Run docker-compose
+`docker-compose up`

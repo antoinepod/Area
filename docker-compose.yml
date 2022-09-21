@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  server:
+    build: ./server
+    container_name: server_backend
+    image: server_img
+    # dockerfile: Dockerfile
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+    networks:
+      - web_network
+
+  web:
+    build: ./web
+    container_name: web_client
+    image: web_img
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./web:/app/
+      # - /app/node_modules
+    depends_on:
+      - server
+    networks:
+      - web_network
+
+volumes:
+  server:
+  web:
+
+networks:
+  web_network:

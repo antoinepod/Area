@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect } from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [data, setData] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/")
+      .then((res) => res.text())
+      .then(
+        (result) => {
+          setData(result);
+          setLoaded(true);
+          console.log(data);
+        },
+        (error) => {
+          console.log(error);
+          setError(error);
+        }
+      );
+  }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  } else if (!loaded) {
+    return <div>Loading...</div>;
+  } else {
+    return (
+      <>
+        <h1>{data}</h1>
+        <p>toto</p>
+      </>
+    );
+  }
 }
 
 export default App;
