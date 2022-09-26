@@ -10,7 +10,7 @@ services:
       - '4000:4000'
     volumes:
       - ./server:/app
-      - /app/node_modules
+      # - .server/:/app/node_modules
     networks:
       - web_network
 
@@ -22,7 +22,7 @@ services:
       - '3000:3000'
     volumes:
       - ./web:/app/
-      # - /app/node_modules
+      # - .web/:/app/node_modules
     depends_on:
       - server
     networks:

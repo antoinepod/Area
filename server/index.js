@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const port = 4000
 
 app.get('/', (req, res) => {
-  res.send('hello aaaaald')
+  res.send('hello world')
 })
 
 app.listen(port, () => {
