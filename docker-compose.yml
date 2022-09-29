@@ -16,7 +16,7 @@ services:
 
   web:
     build: ./web
-    container_name: web_client
+    container_name: web
     image: web_img
     ports:
       - '3000:3000'
