@@ -4,6 +4,7 @@ services:
   server:
     build: ./server
     container_name: server_backend
+    dockerfile: Dockerfile.dev
     image: server_img
     # dockerfile: Dockerfile
     ports:
@@ -17,6 +18,7 @@ services:
   web:
     build: ./web
     container_name: web_client
+    dockerfile: Dockerfile.dev
     image: web_img
     ports:
       - '3000:3000'

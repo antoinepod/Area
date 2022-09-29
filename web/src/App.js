@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import React, { useState, useEffect } from "react";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/")
+    fetch("http://localhost:8080/")
       .then((res) => res.text())
       .then(
         (result) => {
@@ -29,8 +29,12 @@ function App() {
   } else {
     return (
       <>
+      <div className="homePage">
         <h1>{data}</h1>
+      </div>
+      <h1></h1>
       </>
+    
     );
   }
 }
