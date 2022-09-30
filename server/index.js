@@ -1,19 +1,17 @@
-const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const app = require('./src/app')
+require("dotenv").config();
 
-const app = express()
-app.use(cors())
-app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }))
+// const app = express()
+
+// app.use(cors())
+// app.use(express.json())
+// app.use(bodyParser.urlencoded({ extended: true }))
+
+// const db = require('./src/models/index')
+// const Role = db.role
 
 
-const port = 8080
+const port = process.env.PORT || 8080
 
-app.get('/', (req, res) => {
-  res.send('hello World')
-})
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
