@@ -1,5 +1,6 @@
 import "./App.scss";
 import React, { useState, useEffect } from "react";
+import Register from "./components/register/register";
 
 function App() {
   const [data, setData] = useState([]);
@@ -29,10 +30,7 @@ function App() {
   } else {
     return (
       <>
-      <div className="homePage">
-        <h1>{data}</h1>
-      </div>
-      <h1></h1>
+        <Register />
       </>
     
     );

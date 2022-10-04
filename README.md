@@ -18,3 +18,5 @@
 ## Run docker-compose (prod)
 `docker-compose -f docker-compose.dev.yml up`
 
+
+## installer mongodb

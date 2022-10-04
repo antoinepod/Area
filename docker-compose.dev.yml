@@ -1,20 +1,20 @@
 version: "3.7"
 
 services:
-  db:
+  mongo:
     container_name: mongo-dev
     image: mongo
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_DATABASE=auth
-      - MONGO_INITDB_ROOT_PASSWORD=pass
+    # environment:
+      # - MONGO_INITDB_ROOT_USERNAME=admin
+      # - MONGO_INITDB_DATABASE=auth
+      # - MONGO_INITDB_ROOT_PASSWORD=pass
     networks: 
       - db_network
     ports:
       - '27017:27017'
     volumes: 
       - ./server/data:/data/db
-
+    
   server:
     build: ./server
     container_name: server_container_dev
@@ -30,8 +30,10 @@ services:
       - db_network
     environment:
       - NODE_ENV=development
+    links:
+      - mongo
     depends_on:
-      - db
+      - mongo
 
   web:
     build:
@@ -56,6 +58,7 @@ services:
 volumes:
   server:
   web:
+  data:
 
 networks:
   web_network:
