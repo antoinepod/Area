@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user.model');
 
+
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
@@ -35,3 +36,7 @@ exports.login = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
 }
+
+exports.register = ("/register", (req, res) => {
+    res.send("Register");
+  });

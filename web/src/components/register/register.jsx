@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 import './register.scss';
 
 export default function Register() {
@@ -11,9 +12,30 @@ export default function Register() {
     if (password !== password2) {
       alert("Passwords do not match");
     } else {
-      alert("Success");
+      const user = {
+        email: email,
+        password: password,
+      };
+
+      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ email, password }), {headers:{"Content-Type" : "application/json"}})
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      }
+      );
     }
   };
+
+  useEffect = (() => {
+    axios.get(`https://jsonplaceholder.typicode.com/users`)
+      .then(res => {
+        const persons = res.data;
+        this.setState({ persons });
+      })  
+    }, []);
 
   return (
     <div className="register">
