@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
+
 // const database = mongoose.connection;
 // const { user } = require('./models/user.model');
 
@@ -26,11 +27,6 @@ mongoose.connect(MONGO_URI,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion to MongoDB successful !'))
   .catch(error => console.log('error:', error));
-
-// database.on('error', console.error.bind(console, 'MongoDB connection error:'));
-// database.once('open', function() {
-  // console.log("MongoDB database connection established successfully");
-// });
 
 app.get("/ping", (req, res) => {
   return res.send({
