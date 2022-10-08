@@ -27,42 +27,46 @@ export default function Register() {
           console.log(err.response.data);
         }
         );
-        localStorage.setItem("userInfor", JSON.stringify(user));
+        localStorage.setItem("userInfo", JSON.stringify(user));
         window.location.href = '/login'
     }
   };
 
   return (
     <div className="register">
-      <span className="registerTitle">Register</span>
+      <div className="registerContainer">
+      {/* <span className="registerTitle">Register</span> */}
+      <span className="registerTitle">AREA</span>
       <form className="registerForm" onSubmit={handleSubmit}>
         <label>Email</label>
         <input
           className="registerInput"
           type="email"
-          placeholder="Enter your email..."
+          placeholder="Enter your email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <label>Password</label>
         <input
           className="registerInput"
           type="password"
-          placeholder="Enter your password..."
+          placeholder="Enter your password"
           onChange={(e) => setPassword(e.target.value)}
         />
         <label>Confirm Password</label>
         <input
           className="registerInput"
           type="password"
-          placeholder="Confirm your password..."
+          placeholder="Confirm your password"
           onChange={(e) => setPassword2(e.target.value)}
         />
         <button className="registerButton" type="submit">
           Register
         </button>
       </form>
-      <span>Already have an account ?</span>
-      <Link to="/login">Login</Link>
+      <span className="haveAnAccount">Already have an account ? • 
+        <Link className="link" style={{textDecoration:"none", color:"white"}} to="/login"> Login</Link>
+      </span>
+      </div>
     </div>
   );
 }

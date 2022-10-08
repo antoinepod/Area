@@ -13,13 +13,15 @@ import PrivateRoute from "./utils/privateRoute";
 function App() {
     return (
       <>
+        {/* <Login />
+        <Register />
+        <Homepage /> */}
         <Routes>
           <Route element={<PrivateRoute/>}>
             <Route path="/" element={<Homepage />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/" element={<Register replace to="/register" />} /> */}
         </Routes>
       </>
     

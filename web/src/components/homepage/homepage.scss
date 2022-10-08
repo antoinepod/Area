@@ -1,0 +1,53 @@
+.navBar {
+    // background-color: #0E1121;
+    background-color: #020410;
+    height: 100vh;
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+
+    span {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #fff;
+    }
+
+    // .allLogo {
+
+    //     span {
+    //         font-size: 2.5rem;
+    //         font-weight: 700;
+    //         color: #fff;
+    //     }
+    // }
+
+    .backgroundRectangle {
+        // border-color: #3A4065;
+        border: 1px solid;
+        border-color: #191D32;
+        border-radius: 5px;
+        // background-color: #191D32;
+        background-color: #0E1121;
+        max-width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        justify-content: center;
+
+        .font {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .littleSquare {
+            border-radius: 5px;
+            background-color: #3A4065;
+            display: flex;
+            flex-direction: column;
+            align-self: center;
+            justify-content: center;
+        }
+    }
+}

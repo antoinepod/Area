@@ -28,29 +28,31 @@ export default function Login() {
 
 return (
   <div className="login">
-    <span className="loginTitle">login</span>
+    <div className="loginContainer">
+    <span className="loginTitle">AREA</span>
     <form className="loginForm" onSubmit={handleSubmit}>
       <label>Email</label>
       <input
         className="loginInput"
         type="email"
-        placeholder="Enter your email..."
+        placeholder="Enter your email"
         onChange={(e) => setEmail(e.target.value)}
       />
       <label>Password</label>
       <input
         className="loginInput"
         type="password"
-        placeholder="Enter your password..."
+        placeholder="Enter your password"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <label>Confirm Password</label>
       <button className="loginButton" type="submit">
         Login
       </button>
     </form>
-    <span>No account yet ?</span>
-    <Link to="/register">Register</Link>
+    <span className="noAccount">No account yet ? •
+      <Link className='link' style={{textDecoration:"none", color:"white"}} to="/register"> Register</Link>
+    </span>
+    </div>
   </div>
 );
 }
