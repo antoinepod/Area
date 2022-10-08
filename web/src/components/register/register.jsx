@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import './register.scss';
 
 export default function Register() {
@@ -17,25 +18,19 @@ export default function Register() {
         password: password,
       };
 
-      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ email, password }), {headers:{"Content-Type" : "application/json"}})
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err.response.data);
-      }
-      );
+      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ email, password }), { headers: { "Content-Type": "application/json" } })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err.response.data);
+        }
+        );
+        localStorage.setItem("userInfor", JSON.stringify(user));
+        window.location.href = '/login'
     }
   };
-
-  useEffect = (() => {
-    axios.get(`https://jsonplaceholder.typicode.com/users`)
-      .then(res => {
-        const persons = res.data;
-        this.setState({ persons });
-      })  
-    }, []);
 
   return (
     <div className="register">
@@ -66,7 +61,8 @@ export default function Register() {
           Register
         </button>
       </form>
-      <button className="loginButton">Login</button>
+      <span>Already have an account ?</span>
+      <Link to="/login">Login</Link>
     </div>
   );
 }
