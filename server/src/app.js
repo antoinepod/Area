@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const cors = require('cors')
 const bodyParser = require('body-parser')
 
+
 // const database = mongoose.connection;
 // const { user } = require('./models/user.model');
 
@@ -13,14 +14,13 @@ const port = process.env.PORT || 8080
 const app = express()
 
 const userRoutes = require('./routes/user');
+const areaRoutes = require('./routes/area');
 const db = require("./models/index"); 
 
 app.use(cors())
 app.use(bodyParser.json());
 app.use('/api/auth', userRoutes);
-
-
-
+app.use('/api/area', areaRoutes);
 
 mongoose.connect(MONGO_URI,
   { useNewUrlParser: true,
@@ -42,5 +42,6 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
 
 module.exports = app;

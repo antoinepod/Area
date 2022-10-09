@@ -20,7 +20,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.login = (req, res, next) => {
+exports.login = (req, res) => {
   User.findOne({ email: req.body.email }).then((user) => {
     if (!user) {
       return res.status(401).json({ error: "User not found !" });
@@ -47,7 +47,7 @@ exports.login = (req, res, next) => {
   });
 };
 
-exports.register = (req, res, next) => {
+exports.register = (req, res) => {
   (req, res) => {
     if(error)
       return res.status(404).json({ error: "Unauthorized" });
