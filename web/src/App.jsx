@@ -13,16 +13,16 @@ import PrivateRoute from "./utils/privateRoute";
 function App() {
     return (
       <>
-        <Login />
+        {/* <Login />
         <Register />
-        <Homepage />
-        {/* <Routes>
+        <Homepage /> */}
+        <Routes>
           <Route element={<PrivateRoute/>}>
             <Route path="/" element={<Homepage />} />
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-        </Routes> */}
+        </Routes>
       </>
     
     );
