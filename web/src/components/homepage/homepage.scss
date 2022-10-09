@@ -1,53 +1,124 @@
-.navBar {
-    // background-color: #0E1121;
-    background-color: #020410;
-    height: 100vh;
-    // display: flex;
-    // flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
+.homePage {
 
-    span {
-        font-size: 2.5rem;
+    background-color: #020410;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+
+    .fontConnect {
+        font-size: 2rem;
         font-weight: 700;
         color: #fff;
     }
 
-    // .allLogo {
-
-    //     span {
-    //         font-size: 2.5rem;
-    //         font-weight: 700;
-    //         color: #fff;
-    //     }
-    // }
-
-    .backgroundRectangle {
-        // border-color: #3A4065;
-        border: 1px solid;
-        border-color: #191D32;
-        border-radius: 5px;
-        // background-color: #191D32;
+    .header {
+        width: 100%;
+        height: 8vh;
+        border-bottom: 1px solid;
+        border-color: #3A4065;
         background-color: #0E1121;
-        max-width: 80%;
         display: flex;
-        flex-direction: column;
-        align-self: center;
-        justify-content: center;
-
-        .font {
-            font-size: 1rem;
+        align-items: flex-start;
+        justify-content: space-between;
+    
+        span {
+            margin: 10px;
+            font-size: 2.5rem;
             font-weight: 700;
             color: #fff;
         }
-
-        .littleSquare {
-            border-radius: 5px;
-            background-color: #3A4065;
+    
+        .signOut {
+            margin: 10px;
             display: flex;
-            flex-direction: column;
-            align-self: center;
+            align-items: flex-end;
             justify-content: center;
+            width: 15%;
+            padding: 8px;
+            border: 1px solid;
+            border-radius: 5px;
+            border-image: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%) 1;
+            background-color: #020410;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+        
+            &:hover {
+                background-image: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            }
+        }
+    }
+    
+    .cardsContainer {
+        width: 80%;
+        height: 100vh;
+        margin: 100px;
+        border: 1px solid;
+        border-color: #3A4065;
+        border-radius: 5px;
+        background-color: #0E1121;
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        flex-flow: wrap;
+    
+        .font {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+    }
+
+    .cardsForm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 0 20px;
+  
+        .cardsInput {
+          width: 100%;
+          margin-bottom: 10px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          outline: none;
+        }
+  
+        .cardsLoginButton {
+          width: 100%;
+          padding: 10px;
+          border: 1px solid;
+          border-radius: 5px;
+          border-image: radial-gradient(
+              circle,
+              rgba(63, 94, 251, 1) 0%,
+              rgba(252, 70, 107, 1) 100%
+            )
+            1;
+          background-color: #020410;
+          color: #fff;
+          font-size: 1.2rem;
+          font-weight: 700;
+          cursor: pointer;
+  
+          &:hover {
+            background-image: radial-gradient(
+              circle,
+              rgba(63, 94, 251, 1) 0%,
+              rgba(252, 70, 107, 1) 100%
+            );
+          }
+        }
+      }
+      
+    .link {
+        &:hover {
+        text-decoration: underline;
         }
     }
 }

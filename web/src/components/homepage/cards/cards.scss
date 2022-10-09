@@ -1,0 +1,36 @@
+.cards {
+
+    background-color: #191D32;
+    margin: 20px;
+    border: 1px solid;
+    border-color: #3A4065;
+    border-radius: 10px;
+    display: flex;
+    align-self: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 20%;
+    height: 20vh;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #3A4065;
+    }
+
+    .fontCards {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #fff;
+        display: flex;
+        align-self: center;
+        margin: 10px;
+    }
+
+    .descriptionCards {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #fff;
+        display: flex;
+        margin: 10px;
+    }
+}

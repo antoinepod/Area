@@ -35,9 +35,8 @@ export default function Register() {
   return (
     <div className="register">
       <div className="registerContainer">
-      {/* <span className="registerTitle">Register</span> */}
-      <span className="registerTitle">AREA</span>
-      <form className="registerForm" onSubmit={handleSubmit}>
+        <span>AREA</span>
+        <form className="registerForm" onSubmit={handleSubmit}>
         <label>Email</label>
         <input
           className="registerInput"
@@ -62,10 +61,10 @@ export default function Register() {
         <button className="registerButton" type="submit">
           Register
         </button>
-      </form>
-      <span className="haveAnAccount">Already have an account ? • 
-        <Link className="link" style={{textDecoration:"none", color:"white"}} to="/login"> Login</Link>
-      </span>
+        </form>
+        <span className="haveAnAccount">Already have an account ? • 
+        <Link className="link" style={{textDecoration:"none"}} to="/login"> Login</Link>
+        </span>
       </div>
     </div>
   );

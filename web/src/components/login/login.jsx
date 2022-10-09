@@ -29,8 +29,8 @@ export default function Login() {
 return (
   <div className="login">
     <div className="loginContainer">
-    <span className="loginTitle">AREA</span>
-    <form className="loginForm" onSubmit={handleSubmit}>
+      <span>AREA</span>
+      <form className="loginForm" onSubmit={handleSubmit}>
       <label>Email</label>
       <input
         className="loginInput"
@@ -48,10 +48,10 @@ return (
       <button className="loginButton" type="submit">
         Login
       </button>
-    </form>
-    <span className="noAccount">No account yet ? •
-      <Link className='link' style={{textDecoration:"none", color:"white"}} to="/register"> Register</Link>
-    </span>
+      </form>
+      <span className="noAccount">No account yet ? •
+      <Link className='link' style={{textDecoration:"none"}} to="/register"> Register</Link>
+      </span>
     </div>
   </div>
 );

@@ -9,9 +9,7 @@
   span {
     font-size: 2.5rem;
     font-weight: 700;
-    // color: #333;
     color: #fff;
-    // margin-bottom: 20px;
   }
 
   .noAccount {
@@ -27,11 +25,10 @@
     width: 60vw;
     max-width: 500px;
     height: 50vh;
-    // background-color: red;
     border: 1px solid;
-    border-color: #3a4065;
+    border-color: #3A4065;
     border-radius: 5px;
-    background-color: #0e1121;
+    background-color: #0E1121;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,7 +56,6 @@
       .loginButton {
         width: 100%;
         padding: 10px;
-        // border: none;
         border: 1px solid;
         border-radius: 5px;
         border-image: radial-gradient(
