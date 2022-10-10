@@ -7,24 +7,23 @@ import { Routes, Route, Redirect } from "react-router-dom";
 import Register from "./components/register/register";
 import Login from "./components/login/login";
 import Homepage from "./components/homepage/homepage";
+import FullSizecards from "./components/homepage/fullSizeCards/fullSizecards";
 
 import PrivateRoute from "./utils/privateRoute";
 
 function App() {
     return (
       <>
-        {/* <Login />
-        <Register />
-        <Homepage /> */}
+      {/* <FullSizecards /> */}
         <Routes>
           <Route element={<PrivateRoute/>}>
-            <Route path="/" element={<Homepage />} />
+            <Route path="/" element={<Homepage />}/>
+            <Route path="/yougram" element={<FullSizecards />}/>
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-        </Routes>
-      </>
-    
+        </Routes>    
+        </>
     );
 }
 
