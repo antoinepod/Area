@@ -44,7 +44,7 @@ services:
     container_name: web_container_dev
     image: web_img_dev
     ports:
-      - '3000:3000'
+      - '8081:3000'
     volumes:
       - ./web:/app/
       # - /app/node_modules
