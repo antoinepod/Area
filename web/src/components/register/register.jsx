@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import './register.scss';
 
 export default function Register() {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -14,6 +15,7 @@ export default function Register() {
       alert("Passwords do not match");
     } else {
       const user = {
+        username: username,
         email: email,
         password: password,
       };
@@ -37,6 +39,13 @@ export default function Register() {
       <div className="registerContainer">
         <span>AREA</span>
         <form className="registerForm" onSubmit={handleSubmit}>
+        <label>Username</label>
+        <input
+          className="registerInput"
+          type="username"
+          placeholder="Enter your username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <label>Email</label>
         <input
           className="registerInput"
