@@ -4,10 +4,10 @@ WORKDIR /app
 
 COPY package.json .
 
-RUN npm ci
+RUN npm i
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 8081
 
-CMD ["npm", "run", "build"]
+CMD ["npm", "start"]

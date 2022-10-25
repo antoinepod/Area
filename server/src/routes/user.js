@@ -6,6 +6,6 @@ const middlewareAuth = require('../middlewares/auth');
 
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
-router.get('/isAuthenticated', middlewareAuth.verifyToken ,userCtrl.register);
+router.post('/isAuthenticated', middlewareAuth.verifyToken ,userCtrl.register);
 
 module.exports = router

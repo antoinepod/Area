@@ -6,6 +6,8 @@ COPY package.json ./
 COPY package-lock.json ./
 RUN npm ci
 
+EXPOSE 8081
+
 # add app
 COPY . ./
 

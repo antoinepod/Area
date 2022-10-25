@@ -9,7 +9,7 @@ exports.signup = (req, res, next) => {
     .hash(req.body.password, 10)
     .then((hash) => {
       const user = new User({
-        email: req.body.email,
+        username: req.body.username,
         password: hash,
       });
       user
@@ -21,7 +21,7 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res) => {
-  User.findOne({ email: req.body.email }).then((user) => {
+  User.findOne({ username: req.body.username }).then((user) => {
     if (!user) {
       return res.status(401).json({ error: "User not found !" });
     }
@@ -35,7 +35,7 @@ exports.login = (req, res) => {
           auth: true,
           userId: user._id,
           token: jwt.sign(
-            { userId: user._id, email: user.email },
+            { userId: user._id, username: user.username },
             SECRET_KEY,
             {
               expiresIn: 60,

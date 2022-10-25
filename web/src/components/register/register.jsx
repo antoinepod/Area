@@ -5,7 +5,7 @@ import './register.scss';
 
 export default function Register() {
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
 
@@ -16,11 +16,10 @@ export default function Register() {
     } else {
       const user = {
         username: username,
-        email: email,
         password: password,
       };
 
-      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ email, password }), { headers: { "Content-Type": "application/json" } })
+      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" } })
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -39,19 +38,12 @@ export default function Register() {
       <div className="registerContainer">
         <span>AREA</span>
         <form className="registerForm" onSubmit={handleSubmit}>
-        <label>Username</label>
+        <label>username</label>
         <input
           className="registerInput"
           type="username"
           placeholder="Enter your username"
           onChange={(e) => setUsername(e.target.value)}
-        />
-        <label>Email</label>
-        <input
-          className="registerInput"
-          type="email"
-          placeholder="Enter your email"
-          onChange={(e) => setEmail(e.target.value)}
         />
         <label>Password</label>
         <input
