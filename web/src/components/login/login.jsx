@@ -6,7 +6,7 @@ import { setAuthToken } from '../../utils/setAuthToken';
 import './login.scss';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
@@ -31,13 +31,13 @@ return (
     <div className="loginContainer">
       <span>AREA</span>
       <form className="loginForm" onSubmit={handleSubmit}>
-      <label>Email</label>
-      <input
-        className="loginInput"
-        type="email"
-        placeholder="Enter your email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      <label>Username</label>
+        <input
+          className="loginInput"
+          type="username"
+          placeholder="Enter your username"
+          onChange={(e) => setUsername(e.target.value)}
+        />
       <label>Password</label>
       <input
         className="loginInput"
