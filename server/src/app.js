@@ -8,7 +8,7 @@ const bodyParser = require('body-parser')
 // const database = mongoose.connection;
 // const { user } = require('./models/user.model');
 
-const MONGO_URI = 'mongodb://mongo:27017/test'
+const MONGO_URI = 'mongodb://mongo:27017/users'
 const port = process.env.PORT || 8080
 
 const app = express()
