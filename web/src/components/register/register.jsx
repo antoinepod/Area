@@ -25,7 +25,7 @@ export default function Register() {
           console.log(res.data);
         })
         .catch(err => {
-          console.log(err.response.data);
+          console.log(err.response.data); 
         }
         );
         localStorage.setItem("userInfo", JSON.stringify(user));
