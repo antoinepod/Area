@@ -9,6 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    container: linuxserver/docker-compose:latest
     steps:
       - uses: actions/checkout@v2
       - uses: isbang/compose-action@v1.3.2
@@ -16,5 +17,4 @@ jobs:
           compose-file: "./docker-compose.yml"
       - name: Build the stack
         run: docker-compose up -d --build
-      - name: Test
-        run: docker run --network container:webapp-frontend appropriate/curl -s --retry 10 --retry-connrefused http://localhost:5000/
+
