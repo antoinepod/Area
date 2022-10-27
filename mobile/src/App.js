@@ -1,94 +1,97 @@
-import React, {Node, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  StatusBar,
-  TextInput,
-  Button,
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, DeviceEventEmitter } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoginScreen from './components/login/Login'
+import RegisterScreen from './components/register/Register'
+import HomeScreen from './components/home/Home'
+import NewCardScreen from './components/new_card/NewCard'
+import SettingsScreen from './components/settings/Settings'
 
-import LoginScreen, {SocialButton} from "react-native-login-screen";
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+window.$ip = "";
 
 function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
- 
+  const [ip, setIp] = useState("");
+
+  DeviceEventEmitter.addListener("Login", (tmp) => {setIp(tmp)});
+
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor="#034c54" />
-      <Image style={styles.image} source={require("../assets/area_logo.png")} />
- 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Email"
-          placeholderTextColor="#003f5c"
-          onChangeText={(email) => setEmail(email)}
+    <NavigationContainer>
+      <Tab.Navigator
+        initialRouteName="Login"
+        screenOptions={({ route }) => ({
+          headerShown: false,
+          tabBarActiveTintColor: "#3A4065",
+          tabBarInactiveTintColor: "grey",
+          tabBarLabelStyle: {
+            paddingBottom: 5,
+            fontSize: 10
+          },
+          tabBarStyle: [{ display: "flex", height: "7%"}],
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            let rn = route.name;
+
+            if (rn === "Home") { iconName = focused ? 'home-variant' : 'home-variant-outline'; }
+            else if (rn === "New Card") { iconName = focused ? 'plus-box' : 'plus-box-outline'; }
+            else if (rn === "Settings") { iconName = focused ? 'wrench' : 'wrench-outline'; }
+
+            return <MaterialCommunityIcons name={iconName} size={size} color={color} style/>;
+          },
+        })} >
+
+        <Tab.Screen name="Login" component={LoginScreen}
+          options={{
+            tabBarStyle: {display: 'none'},
+            tabBarButton: (props) => null
+          }}
         />
-      </View>
- 
-      <View style={styles.inputView}>
-        <TextInput
-          style={styles.TextInput}
-          placeholder="Password"
-          placeholderTextColor="#003f5c"
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
+        <Tab.Screen name="Register" component={RegisterScreen}
+          options={{
+            tabBarStyle: {display: 'none'},
+            tabBarButton: (props) => null
+          }}
         />
-      </View>
- 
-      <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.loginText}>LOGIN</Text>
-      </TouchableOpacity>
-    </View>
+
+        <Tab.Screen name="Home" component={HomeScreen}
+          options={{
+            tabBarStyle: styles.navBar
+          }}
+        />
+        <Tab.Screen name="New Card" component={NewCardScreen}
+          options={{
+            tabBarStyle: styles.navBar
+          }}
+        />
+        <Tab.Screen name="Settings" component={SettingsScreen}
+          options={{
+            tabBarStyle: styles.navBar
+          }}
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
 }
- 
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#034c54",
-  },
- 
-  image: {
-    height: "30%",
-    resizeMode: 'center',
-  },
- 
-  inputView: {
-    backgroundColor: 'green',
-    borderRadius: 30,
-    width: "70%",
-    height: 45,
-    alignItems: "center",
-  },
- 
-  TextInput: {
-    height: 50,
-    flex: 1,
-    padding: 10,
-    marginLeft: 20,
-  },
- 
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
-  },
- 
-  loginBtn: {
-    width: "80%",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FF1493",
-  },
+  navBar: {
+    display: "flex",
+    height: 60,
+    width: "92%",
+    backgroundColor: '#191D32',
+    borderTopWidth: 0,
+    borderRadius: 20,
+    position: "absolute",
+    marginLeft: "4%",
+    marginRight: "4%",
+    marginBottom: "2%"
+  }
 });
 
 export default App;
