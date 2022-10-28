@@ -11,22 +11,38 @@ import {
   ScrollView,
   ToastAndroid,
 } from 'react-native';
-import Dialog from "react-native-dialog";
 import { FAB } from "react-native-paper";
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import axios from 'axios'
 
 
 export default function ({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
-  const handleRegister = () => {
-    if (email === "" || password === "")
+  const handleRegister = (e) => {
+    if (username === "" || password === "" || password2 === "") {
       ToastAndroid.show('Please fill all fields', ToastAndroid.SHORT);
-    else
-      navigation.navigate('Login');
+    } else if (password !== password2) {
+      ToastAndroid.show('Passwords do not match', ToastAndroid.SHORT);
+    } else {
+      axios.post('http://' + window.$ip + ':8080/api/auth/signup', JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          // const token  =  res.data.token;
+          // localStorage.setItem("token", token);
+          // setAuthToken(token);
+          window.$token = res.data.token;
+          navigation.navigate('Login');
+        })
+        .catch(err => {
+          ToastAndroid.show("User already exists !", ToastAndroid.SHORT);
+          console.log(err.response);
+        }
+      );
+    }
   };
  
   return (
@@ -40,7 +56,7 @@ export default function ({ navigation }) {
           placeholder="Username"
           placeholderTextColor='grey'
           autoComplete='username'
-          onChangeText={(email) => setEmail(email)}
+          onChangeText={(username) => setUsername(username)}
         />
       </View>
  
@@ -62,7 +78,7 @@ export default function ({ navigation }) {
           placeholderTextColor='grey'
           autoComplete='password-new'
           secureTextEntry={hidePass ? true : false}
-          onChangeText={(password) => setPassword2(password2)}
+          onChangeText={(password2) => setPassword2(password2)}
         />
         <FAB
           icon={hidePass ? 'eye' : 'eye-off-outline'}
