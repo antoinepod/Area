@@ -15,6 +15,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 window.$ip = "";
+window.$token = "";
 
 function App() {
   const [ip, setIp] = useState("");
