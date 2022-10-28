@@ -11,7 +11,8 @@ import {
   ScrollView,
   Alert,
   ToastAndroid,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  Keyboard
 } from 'react-native';
 import Dialog from "react-native-dialog";
 import axios from 'axios';
@@ -30,8 +31,19 @@ export default function ({ navigation }) {
     if (tmpIp === "")
       ToastAndroid.show('Please fill all fields', ToastAndroid.SHORT);
     else {
-      setVisibleIp(false);
       window.$ip = tmpIp;
+      axios.get('http://' + window.$ip + ':8080', { headers: { "Content-Type": "application/json" }})
+        .then(res => {
+          ToastAndroid.show("Connected to server", ToastAndroid.SHORT);
+          setVisibleIp(false);
+        })
+        .catch(err => {
+          window.$ip = "";
+          Keyboard.dismiss();
+          ToastAndroid.show("Can not connect to server", ToastAndroid.SHORT);
+          console.log(err.response);
+        }
+      );
       console.log('ip: %s', window.$ip);
     }
   };
@@ -48,7 +60,6 @@ export default function ({ navigation }) {
     } else if (window.$ip === "")
       ToastAndroid.show('Please configure server IP before', ToastAndroid.SHORT);
     else {
-      // e.preventDefault();
       axios.post('http://' + window.$ip + ':8080/api/auth/login', JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
         .then(res => {
           console.log(res);
@@ -56,11 +67,12 @@ export default function ({ navigation }) {
           // const token  =  res.data.token;
           // localStorage.setItem("token", token);
           // setAuthToken(token);
+          window.$token = res.data.token;
           navigation.navigate('Home');
         })
         .catch(err => {
-          ToastAndroid.show('Wrong credentials', ToastAndroid.SHORT);
-          console.log(err.response.data);
+          ToastAndroid.show(JSON.stringify(err.response.data.error).replaceAll('"', ''), ToastAndroid.SHORT);
+          console.log(err.response);
         }
       );
     }
