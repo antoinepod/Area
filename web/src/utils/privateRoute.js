@@ -25,7 +25,7 @@ const PrivateRoute = () => {
       });
   }, []);
 
-  return !isValid ? <Outlet /> : <Navigate to="/login" />;
+  return isValid ? <Outlet /> : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;

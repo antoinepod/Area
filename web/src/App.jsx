@@ -15,6 +15,7 @@ function App() {
     return (
       <>
       {/* <FullSizecards /> */}
+      {console.log(localStorage.getItem("token"))}
         <Routes>
           <Route element={<PrivateRoute/>}>
             <Route path="/" element={<Homepage />}/>
