@@ -1,6 +1,9 @@
 // const sendTelegramMessage = require("../services/telegram/reaction");
 const dotenv = require("dotenv");
+const User = require("../models/user.model");
 const axios = require("axios");
+const { isObjectIdOrHexString } = require("mongoose");
+const { mongoose } = require("../models");
 dotenv.config();
 
 const YOUTUBE_TOKEN ="AIzaSyCM-9yTtIDK3ViuEqF2YgotLZi2WeYKY4k"
@@ -19,21 +22,7 @@ function sendTelegramMessage (message) {
         console.log(error);
       });
   };
-// exports.yougram =(async req, res) => {
-//     setInterval (  () => {
-//         await axios.get("https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=UCBcWWjNbwwIAA8gEj2bpt3w&maxResults=1&order=date&type=video&key=AIzaSyBKEFcb3cuqMfK6hwt4oLYbg9Gaj7gruRw")
-//         .then((response) => {
-//             console.log(response.data.items[0].id.videoId);
-//         });
-//         // const obj = JSON.parse(json);
-//         // if (obj.items[0].id.videoId != id) {
-//         //     res.send("New video");
-//         //     console.log("New video");
-//         //     sendTelegramMessage(obj.items[0].id.videoId);
-//         // }
-//       }, 1000);     //when new video is published on youtube send a message to telegram
-//       res.json("Hello World!");
-//     };
+
 
 exports.yougram =(req, res) => {
     let id = 0;
@@ -55,25 +44,50 @@ exports.yougram =(req, res) => {
       }, 60000);     //when new video is published on youtube send a message to telegram
     };
 
-// exports.yougram = (req, res) => {
-//   let id = 0;
 
-//   let int = setInterval(async () => {
-//     await axios
-//       .get(
-//         `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${req.body.channelId}&maxResults=1&order=date&type=video&key=${}`
-//       )
-//       .then((response) => {
-//         console.log(response.data.items[0].id.videoId);
-//         id = response.data.items[0].id.videoId;
-//         // clearInterval(int);
-//         // const obj = JSON.parse(json);
-//         if (response.data.items[0].id.videoId != id) {
-//           res.send("New video");
-//           console.log("New video");
-//           sendTelegramMessage(response.data.items[0].id.videoId);
-//         }
-//       });
-//   }, 10000); //when new video is published on youtube send a message to telegram
-//   res.json("Hello World!");
-// };
+exports.create = async (req, res) => {
+  User.findOneAndUpdate(
+    { username: req.body.username },
+    { $push: { areas: { _id: Date.now(), action: req.body.action, reaction: req.body.reaction, status: false } } },
+    function(error, user) {
+      if (!user)
+        return res.status(404).json({ success: false, message: 'User not found' });
+      else if (error)
+        return res.status(404).json({ succes: false, message: 'Area not added', error })
+      else
+        return res.status(200).json({ success: true, message: 'Area added !', data: user })
+    }
+  );
+};
+
+
+exports.delete = async (req, res) => {
+  User.findOneAndUpdate(
+    { username: req.body.username },
+    { $pull: { areas: { _id: req.body._id }}},
+    function(error, area) {
+      if (!area)
+        return res.status(404).json({ success: false, message: 'Area not found' });
+      else if (error)
+        return res.status(404).json({area, success: false, message: 'User not updated', error })
+      else
+        return res.status(200).json({ success: true, message: 'Area deleted !', data: area })
+    }
+  );
+};
+
+
+exports.update = async (req, res) => {
+  User.updateOne(
+    { username: req.body.username, "areas._id": req.body._id },
+    { $set: { "areas.$.status": req.body.status}},
+    function(error, area) {
+      if (!area)
+        return res.status(404).json({ success: false, message: 'Area not found' });
+      else if (error)
+        return res.status(404).json({area, success: false, message: 'User not updated', error })
+      else
+        return res.status(200).json({ success: true, message: 'Area updated !', data: area })
+    }
+  );
+};
