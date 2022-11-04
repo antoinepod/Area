@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { setAuthToken } from '../../utils/setAuthToken';
-
+import GoogleLogin from 'react-google-login';
 import './login.scss';
 
 export default function Login() {
@@ -21,10 +21,16 @@ export default function Login() {
         window.location.href = '/'
       })
       .catch(err => {
-        console.log(err.response.data);
+        console.log(err.response);
       }
       );
   };
+
+  const handleGoogleLogin = async googleData => {
+    const res = await axios.post('http://localhost:8080/api/auth/google', { tokenId: googleData.tokenId });
+    const data = await res.json()
+    // store returned user somehow
+  } 
 
 return (
   <div className="login">
@@ -49,6 +55,13 @@ return (
         Login
       </button>
       </form>
+      <GoogleLogin
+        clientId="962351901248-vt8o9io4adohtlihbs3lpdtlichv9kqn.apps.googleusercontent.com"
+        buttonText="Log in with Google"
+        onSuccess={handleGoogleLogin}
+        onFailure={handleGoogleLogin}
+        cookiePolicy={'single_host_origin'}
+      />
       <span className="noAccount">No account yet ? •
       <Link className='link' style={{textDecoration:"none"}} to="/register"> Register</Link>
       </span>
