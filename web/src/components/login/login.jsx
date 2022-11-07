@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { setAuthToken } from '../../utils/setAuthToken';
-import GoogleLogin from 'react-google-login';
 import './login.scss';
 
 export default function Login() {
@@ -55,13 +54,6 @@ return (
         Login
       </button>
       </form>
-      <GoogleLogin
-        clientId="962351901248-vt8o9io4adohtlihbs3lpdtlichv9kqn.apps.googleusercontent.com"
-        buttonText="Log in with Google"
-        onSuccess={handleGoogleLogin}
-        onFailure={handleGoogleLogin}
-        cookiePolicy={'single_host_origin'}
-      />
       <span className="noAccount">No account yet ? •
       <Link className='link' style={{textDecoration:"none"}} to="/register"> Register</Link>
       </span>
