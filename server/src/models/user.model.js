@@ -1,12 +1,20 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
+const passportLocalMongoose = require("passport-local-mongoose")
 
-// const AreaModel = require("./area.model"); 
-// const AreaSchema = mongoose.model('Area', AreaModel);
+const sessionSchema = mongoose.Schema({
+  refreshToken: {
+    type: String,
+    default: "",
+  },
+})
 
 const userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true, trim: true },
-  password: { type: String, required: true },
+  // password: { type: String, required: true },
+  refreshToken: {
+    type: [sessionSchema],
+  },
   created: { type: Date, default: Date.now },
   areas: [{
     _id: { type: String, require: true, trim: true },
@@ -15,6 +23,15 @@ const userSchema = mongoose.Schema({
     status: { type: Boolean, required: true, trim: true },
     }],
 }, { collection: "users" });
+
+userSchema.set("toJSON", {
+  transform: function (doc, ret, options) {
+    delete ret.refreshToken
+    return ret
+  },
+})
+
+userSchema.plugin(passportLocalMongoose)
 
 userSchema.plugin(uniqueValidator);
 
