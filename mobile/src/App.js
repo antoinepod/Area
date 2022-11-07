@@ -4,23 +4,44 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import SyncStorage, { init } from 'sync-storage';
+
 import LoginScreen from './components/login/Login'
 import RegisterScreen from './components/register/Register'
 import HomeScreen from './components/home/Home'
 import NewCardScreen from './components/new_card/NewCard'
 import SettingsScreen from './components/settings/Settings'
+import AnimatedSplash from "react-native-animated-splash";
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-window.$ip = "";
-window.$token = "";
-
 function App() {
   const [ip, setIp] = useState("");
 
   DeviceEventEmitter.addListener("Login", (tmp) => {setIp(tmp)});
+
+  // const getInitialRouteName = async () => {
+  //   const data = await SyncStorage.init();
+  //   console.log('SyncStorage is ready!', data);
+  //   console.log("getInitialRouteName =" + SyncStorage.get('token'));
+  //   if (await SyncStorage.get('token') === undefined || await SyncStorage.get('token') === "")
+  //     return 'Login';
+  //   else
+  //     return 'Home';
+  // };
+
+  React.useEffect(() => {
+    async function initSyncStorage() {
+      const data = await SyncStorage.init();
+      console.log('SyncStorage is ready!', data);
+    }
+    initSyncStorage();
+    setTimeout(() => {
+      AnimatedSplash.hide();
+    }, 500);
+  }, []);
 
   return (
     <NavigationContainer>

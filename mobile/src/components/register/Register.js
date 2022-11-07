@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { FAB } from "react-native-paper";
 import axios from 'axios'
+import SyncStorage from 'sync-storage';
+
 
 
 export default function ({ navigation }) {
@@ -27,14 +29,13 @@ export default function ({ navigation }) {
     } else if (password !== password2) {
       ToastAndroid.show('Passwords do not match', ToastAndroid.SHORT);
     } else {
-      axios.post('http://' + window.$ip + ':8080/api/auth/signup', JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
+      axios.post('http://' + SyncStorage.get('ip') + ':8080/api/auth/signup', JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
         .then(res => {
           console.log(res);
           console.log(res.data);
           // const token  =  res.data.token;
           // localStorage.setItem("token", token);
           // setAuthToken(token);
-          window.$token = res.data.token;
           navigation.navigate('Login');
         })
         .catch(err => {

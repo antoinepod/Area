@@ -12,13 +12,14 @@ import {
   Animated,
   useWindowDimensions,
 } from 'react-native';
+import { Switch } from 'react-native-paper';
 import CreateCard from './Cards';
 
 export default function ({ navigation }) {
 
   const {width} = useWindowDimensions();
 
-  const images = React.useMemo(() => ([
+  const areas = React.useMemo(() => ([
     require('../../../assets/YouGram.png'),
     require('../../../assets/YouGram.png'),
     require('../../../assets/YouGram.png'),
@@ -42,21 +43,21 @@ export default function ({ navigation }) {
         renderItem={({item}) => {
           return (
               <View style={{
-                // alignItems: "center",
                 justifyContent: "center",
                 width,
                 marginTop: "5%",
                 marginBottom: "15%"
               }}>
                 <CreateCard 
-                  title="YouGram"
-                  image={item}
-                  description="YouGram is a service that allows you to receive Telegram message when a youtuber post a new video."
-                 />
+                  action_name="YouTube"
+                  action_description="A youtuber posts a new video"
+                  reaction_name="Telegram"
+                  reaction_description="Area's bot sends you a message"
+                />
               </View>
           )
         }}
-        data={images}
+        data={areas}
       />
     </View>
   );

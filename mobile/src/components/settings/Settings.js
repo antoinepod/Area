@@ -13,11 +13,13 @@ import {
   ToastAndroid,
 } from 'react-native';
 import { FAB } from "react-native-paper";
+import SyncStorage from 'sync-storage';
 
 
 export default function ({ navigation }) { 
 
   const handleLogout = () => {
+    SyncStorage.set('token', '');
     navigation.navigate("Login")
   };
 

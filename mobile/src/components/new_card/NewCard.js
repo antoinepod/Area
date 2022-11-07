@@ -10,6 +10,7 @@ import {
   ScrollView,
   Alert,
   ToastAndroid,
+  Button
 } from 'react-native';
 import ServiceList from './ServiceList';
 
@@ -20,36 +21,64 @@ export default function ({ navigation }) {
 
   const handlePress = () => setExpanded(!expanded);
 
-  const youtubeItems = [
-    "A youtuber posts a new video",
-    "A comment is posted on a video",
-    "A youtuber goes live",
-    "You have a new follower"
-  ]
-  
-  const weatherItems = [
-    "It is raining",
-    "The temperature drops below ...°c",
-    "The temperature goes above ...°c"
+  const actions = [
+    ["NASA", "space-station", "darkblue", ["Astronomy picture of the day is available"]],
+    ["YouTube", "youtube", "#FF0000", ["A youtuber posts a new video"]],
+    ["Weather", "weather-partly-rainy", "green", ["It starts raining", "The temperature drops below 0°c"]]
   ]
 
-  const teamsItems = [
-    "A new message is posted in a channel",
-    "A new message is posted in a chat"
+  const reactions = [
+    ["Discord", "discord", "#5865F2", ["Send you a private message"]],
+    ["Telegram", "message-processing", "#0088cc", ["Area's bot sends you a message"]],
+    ["Twitter", "twitter", "#00acee", ["Tweet a message on your account"]],
   ]
+
+  const [selectedAction, selectAction] = React.useState("");
+  const [selectedReaction, selectReaction] = React.useState("");
+
+  const [status, setStatus] = React.useState(false);
+
+  function displayServices() {
+    if (!status) {
+      return ( <>
+        <Text style={styles.subtitle}>Select an action</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+          {actions.map(item =>
+            <ServiceList key={item} service={item[0]} icon={item[1]} colorOn={item[2]} items={item[3]} selected={selectedAction} select={selectAction} />
+          )}
+        </ScrollView>
+        <View style={styles.buttonView}>
+          <TouchableOpacity style={styles.nextButton} onPress={() => {if(selectedAction) setStatus(!status); else ToastAndroid.show('Please select an action', ToastAndroid.SHORT);}}>
+            <Text style={{color: "white"}}>NEXT</Text>
+          </TouchableOpacity>
+        </View>
+      </> );
+    } else {
+      return ( <>
+        <Text style={styles.subtitle}>Select a reaction</Text>
+        <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
+          {reactions.map(item =>
+            <ServiceList key={item} service={item[0]} icon={item[1]} colorOn={item[2]} items={item[3]} selected={selectedReaction} select={selectReaction} />
+          )}
+        </ScrollView>
+        <View style={styles.buttonView}>
+          <TouchableOpacity style={styles.cancelButton} onPress={() => {setStatus(!status); selectAction(""); selectReaction("")}}>
+            <Text style={{color: "white"}}>CANCEL</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.createButton} onPress={() => {if(selectedReaction) {setStatus(!status); navigation.navigate('Home'); selectAction(""); selectReaction("")} else ToastAndroid.show('Please select a reaction', ToastAndroid.SHORT);}}>
+            <Text style={{color: "white"}}>CREATE</Text>
+          </TouchableOpacity>
+        </View>
+      </> );
+    }
+  }
 
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor="#020410" />
-
       <Text style={styles.title}>NEW CARD</Text>
-      <Text style={styles.subtitle}>Select an action</Text>
 
-      <ScrollView showsVerticalScrollIndicator={false} style={styles.scrollView}>
-        <ServiceList service="YouTube" icon="youtube" colorOn='#FF0000' items={youtubeItems} />
-        <ServiceList service="Weather" icon="weather-partly-rainy" colorOn='green' items={weatherItems} />
-        <ServiceList service="Microsoft Teams" icon="microsoft-teams" colorOn='#7B83EB' items={teamsItems} />
-      </ScrollView>
+      {displayServices()}
     </View>
   );
 }
@@ -77,6 +106,39 @@ const styles = StyleSheet.create({
 
   scrollView: {
     width: "92%",
-    marginBottom: "18%"
+    marginBottom: "2%"
   },
+
+  buttonView: {
+    marginBottom: "19%",
+    flexDirection: "row", 
+    justifyContent: 'space-between',
+    height: "6%"
+  },
+
+  nextButton: {
+    width: "35%",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "darkgreen"
+  },
+
+  cancelButton: {
+    width: "35%",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "darkred",
+    marginRight: "3%"
+  },
+
+  createButton: {
+    width: "35%",
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "darkgreen",
+    marginLeft: "3%"
+  }
 });

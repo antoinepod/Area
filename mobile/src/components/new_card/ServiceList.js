@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { List, Divider } from 'react-native-paper';
 
 
-const ServiceList = ({service, icon, colorOn,  items}) => {
+const ServiceList = ({service, icon, colorOn, items, selected, select}) => {
   var color = 'grey';
 
   const changeColor = () => {
@@ -13,6 +13,17 @@ const ServiceList = ({service, icon, colorOn,  items}) => {
       color = 'grey';
   };
 
+  items.map((item) => {
+    console.log(item);
+  });
+
+  function getIcon(item) {
+    if (selected == item)
+      return "circle-slice-8";
+    else
+      return "circle-outline";
+  }
+
   return (
     <>
       <List.Accordion
@@ -21,7 +32,7 @@ const ServiceList = ({service, icon, colorOn,  items}) => {
         style={styles.accordion}
         title={service}
         titleStyle={styles.accordionTitle}
-        left={props => <List.Icon icon={icon} color={color}/>}>
+        left={props => <List.Icon icon={icon} color={colorOn}/>}>
         {items.map(item =>
           <List.Item
             key={item}
@@ -29,7 +40,8 @@ const ServiceList = ({service, icon, colorOn,  items}) => {
             title={item}
             titleNumberOfLines={10}
             titleStyle={{ color: "white", fontSize:18 }}
-            right={props => <List.Icon {...props} icon="circle-outline" color="white" />}
+            right={props => <List.Icon {...props} icon= {getIcon(item)} color="white" />}
+            onPress={() => {select(item)}}
           />
         )}
       </List.Accordion>
