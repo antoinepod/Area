@@ -24,7 +24,6 @@ services:
       - '8080:8080'
     volumes:
       - ./server:/app
-      - /app/node_modules
     networks:
       - web_network
       - db_network
