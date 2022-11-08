@@ -15,12 +15,16 @@ const app = express()
 
 const userRoutes = require('./routes/user');
 const areaRoutes = require('./routes/area');
+const actionRoutes = require('./routes/action');
+const reactionRoutes = require('./routes/reaction');
 const db = require("./models/index"); 
 
 app.use(cors())
 app.use(bodyParser.json());
 app.use('/api/auth', userRoutes);
 app.use('/api/area', areaRoutes);
+app.use('/api/action', actionRoutes);
+app.use('/api/reaction', reactionRoutes);
 
 mongoose.connect(MONGO_URI,
   { useNewUrlParser: true,
