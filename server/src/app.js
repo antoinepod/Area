@@ -38,6 +38,7 @@ const db = require("./models/index");
 
 require("./strategies/jwtStrategy")
 require("./strategies/localStrategies")
+require("./strategies/googleStrategy")
 require("./controllers/user")
 
 app.use(bodyParser.json());

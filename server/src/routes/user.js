@@ -11,10 +11,16 @@ const User = require("../models/user.model");
 const jwt = require("jsonwebtoken")
 
 
-
-router.post("/google", userCtrl.googleLogin);
+// router.post("/google", userCtrl.googleLogin);
 // router.post('/signup', userCtrl.signup);
 // router.post("/login", passport.authenticate("local"), userCtrl.login);
+
+router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/login" }), (req, res) => {
+    // Successful authentication, redirect home.
+    res.redirect("/");
+    res.send(req.user)
+});
 
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
     const token = getToken({ _id: req.user._id })
@@ -123,4 +129,5 @@ router.post("/refreshToken", (req, res, next) => {
       res.send("Unauthorized")
     }
   })
+
 module.exports = router
