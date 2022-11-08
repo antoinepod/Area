@@ -15,14 +15,14 @@ services:
     volumes: 
       - ./data:/data/db
 
-  # mobile:
-  #   build: ./mobile
-  #   container_name: mobile_container_dev
-  #   image: mobile_img_dev
-  #   environment:
-  #     - NODE_ENV=production
-  #   volumes:
-  #     - shared-volume:/android/app/build/outputs/apk/release/
+  mobile:
+    build: ./mobile
+    container_name: mobile_container_dev
+    image: mobile_img_dev
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - shared-volume:/android/app/build/outputs/apk/release/
 
   server:
     build: ./server
@@ -56,8 +56,8 @@ services:
       - web_network
     environment:
       - CHOKIDAR_USEPOLLING=true
-    # volumes:
-    #   - shared-volume:/mobile_apk
+    volumes:
+      - shared-volume:/mobile_apk
 
 volumes:
   server:

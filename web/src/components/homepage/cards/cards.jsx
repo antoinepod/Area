@@ -8,9 +8,9 @@ export default function cards({title, action, reaction}) {
       <div className='fontCards'>{title}</div>
       <div className='descriptionCards'>{action}</div>
       <div className='descriptionCards'>{reaction}</div>
-      <Link to="/yougram" className="link">
+      {/* <Link to="/yougram" className="link">
           {title}
-      </Link>
+      </Link> */}
     </div>
   )
 }

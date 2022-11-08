@@ -10,12 +10,12 @@
     justify-content: flex-start;
     flex-direction: column;
     width: 20%;
-    height: 20vh;
-    cursor: pointer;
+    height: 15vh;
+    // cursor: pointer;
 
-    &:hover {
-        background-color: #3A4065;
-    }
+    // &:hover {
+    //     background-color: #3A4065;
+    // }
 
     .fontCards {
         font-size: 2rem;
@@ -31,6 +31,7 @@
         font-weight: 400;
         color: #fff;
         display: flex;
+        align-self: center;
         margin: 10px;
     }
 }
