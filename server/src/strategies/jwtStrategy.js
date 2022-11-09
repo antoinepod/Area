@@ -5,7 +5,7 @@ const JwtStrategy = require("passport-jwt").Strategy,
 
 const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken()
-opts.secretOrKey = process.env.JWT_SECRET
+opts.secretOrKey = process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba"
 
 // Used by the authenticated requests to deserialize the user,
 // i.e., to fetch user details from the JWT.
@@ -22,7 +22,7 @@ passport.use(
         return done(null, user)
       } else {
         return done(null, false)
-        // or you could create a new account
+        // or you could create* a new account
       }
     })
   })
