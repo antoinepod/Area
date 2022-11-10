@@ -1,6 +1,10 @@
 const axios = require("axios");
 
 
+function getCorrectDate(date) {
+  return date.getDate() + " " + date.toLocaleString('en-US', {month: 'long'});
+}
+
 const parseData = (data) => {
   const tab = [];
   const results = data.MRData.RaceTable.Races[0].Results;
