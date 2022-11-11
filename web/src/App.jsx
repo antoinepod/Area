@@ -8,6 +8,7 @@ import Register from "./components/register/register";
 import Login from "./components/login/login";
 import Homepage from "./components/homepage/homepage";
 import Linkpage from "./components/linkpage/linkpage";
+import Createpage from "./components/createpage/createpage";
 import FullSizecards from "./components/homepage/fullSizeCards/fullSizecards";
 
 import PrivateRoute from "./utils/privateRoute";
@@ -20,6 +21,7 @@ function App() {
     <Linkpage /> */}
       <Routes>
         {/* <Route element={<PrivateRoute/>}> */}
+          <Route path="/createpage" element={<Createpage />} />
           <Route path="/linkpage" element={<Linkpage />} />
           <Route path="/" element={<Homepage />}/>
           <Route path="/yougram" element={<FullSizecards />}/>

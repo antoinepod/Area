@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import './register.scss';
+// import areaLogo from "./../login/assets/area-logo.png"
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -36,6 +37,7 @@ export default function Register() {
   return (
     <div className="register">
       <div className="registerContainer">
+        {/* <img src={areaLogo}></img> */}
         <span>AREA</span>
         <form className="registerForm" onSubmit={handleSubmit}>
         <label>username</label>
