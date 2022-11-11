@@ -10,7 +10,7 @@ import Homepage from "./components/homepage/homepage";
 import Linkpage from "./components/linkpage/linkpage";
 import Createpage from "./components/createpage/createpage";
 import FullSizecards from "./components/homepage/fullSizeCards/fullSizecards";
-import { UserProvider } from "./utils/userContext";
+
 import PrivateRoute from "./utils/privateRoute";
 
 function App() {

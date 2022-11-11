@@ -1,13 +1,32 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../utils/userContext";
 
 
 const PrivateRoute = () => {
-  const [userContext, setUserContext] = useContext(UserContext)
+  // create a private routes components
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  return userContext.token ? <Outlet/> : <Navigate to="/login"/>;
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("/api/auth/isAuthenticated");
+        setIsAuthenticated(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        navigate("/login");
+      }
+    };
+    checkAuth();
+  }
+  , [navigate]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   
 };
 

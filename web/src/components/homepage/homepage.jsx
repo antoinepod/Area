@@ -3,16 +3,14 @@ import axios from "axios";
 import './homepage.scss';
 import Cards from './cards/cards.jsx'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../../utils/userContext';
 
 
 export default function Homepage() {
-  const [userContext, setUserContext] = useContext(UserContext)
   const token = localStorage.getItem("token");
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/api/auth/user`, { headers: { "Authorization": `Bearer ${token}` }})
+    axios.get(`/api/auth/user`, { headers: { "Authorization": `Bearer ${token}` }})
       .then(res => {
       console.log(res);
       console.log(res.data);
@@ -21,22 +19,20 @@ export default function Homepage() {
         // This could happen if the refreshToken calls have failed due to network error or
         // User has had the tab open from previous day and tries to click on the Fetch button
         window.location.reload()
-      } else {
-      setUserContext(current => {
-        return { ...current, user: res.data }
       }
-    )}})
-  }, [])
+      setData(res.data);
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    });
+  }, []);
+
 
     const logoutHandler = () => {
-      axios.get(`http://localhost:8080/api/auth/logout`, { headers: { "Authorization": `Bearer ${token}` }})
-      .then(async response => {
-        setUserContext(oldValues => {
-          return { ...oldValues, details: undefined, token: null }
-        })
-        window.localStorage.setItem("logout", Date.now())
-      })
+      localStorage.clear();
+      window.location.href = '/login'
     }
+
  {/*window.location.href = '/login'*/}
   return (
     <div className="homePage">

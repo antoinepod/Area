@@ -19,7 +19,7 @@ export default function Register() {
         password: password,
       };
 
-      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" } })
+      axios.post(`/api/auth/signup`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" } })
         .then(res => {
           console.log(res);
           console.log(res.data);
