@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { setAuthToken } from '../../utils/setAuthToken';
 import './login.scss';
-import { UserContext } from '../../utils/userContext';
+import areaLogo from "./assets/area-logo.png"
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -39,6 +39,7 @@ export default function Login() {
 return (
   <div className="login">
     <div className="loginContainer">
+      <img src={areaLogo}></img>
       <span>AREA</span>
       <form className="loginForm" onSubmit={handleSubmit}>
       <label>Username</label>

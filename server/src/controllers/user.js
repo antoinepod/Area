@@ -1,9 +1,11 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = require("../configs/auth.config").SECRET_KEY;
+// const SECRET_KEY = require("../configs/auth.config").SECRET_KEY;
+const SECRET_KEY  = process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba"
 const middlewareAuth = require("../middlewares/auth");
 const passport = require("passport");
+// const connectEnsureLogin = require('connect-ensure-login'); //authorization
 
 const dev = process.env.NODE_ENV !== "production";
 
@@ -11,7 +13,7 @@ const { OAuth2Client } = require("google-auth-library");
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 
-exports.COOKIE_OPTIONS = {
+const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: !dev,
   signed: true,
@@ -19,120 +21,135 @@ exports.COOKIE_OPTIONS = {
   sameSite: "none",
 };
 
-exports.getToken = (user) => {
+const getToken = (user) => {
   return jwt.sign(user, process.env.JWT_SECRET, {
     expiresIn: eval(process.env.SESSION_EXPIRY),
   });
 };
 
-exports.getRefreshToken = (user) => {
+const getRefreshToken = (user) => {
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
     expiresIn: eval(process.env.REFRESH_TOKEN_EXPIRY),
   });
   return refreshToken;
 };
 
-exports.verifyUser = passport.authenticate("jwt", { session: false })
+const verifyUser = passport.authenticate("jwt", { session: false })
 
-// exports.signup = (req, res, next) => {
-// bcrypt
-//   .hash(req.body.password, 10)
-//   .then((hash) => {
-//       const user = new User({
-//         username: req.body.username,
-//         password: hash,
-//       });
-// user
-//   .save()
-//   .then(() => res.status(201).json({ message: "User created !" }))
-//   .catch((error) => res.status(400).json({ error }));
-//     })
-//     .catch((error) => res.status(500).json({ error }));
-// };
+const logout = (req, res, next) => {
+  req.logout((err)=> {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      // res.redirect("/login")
+      res.status(200).send("Logged out");
+      // res.redirect("/login");
+    }
+  })
+};
 
-// exports.signup = (req, res, next) => {
-//   if (!req.body.username) {
-//     res.statusCode = 500;
-//     res.send({
-//       name: "ValidationError",
-//       message: "Username is required",
-//     });
-//   } else {
-//     User.register(
-//       // bcrypt.hash(req.body.password, 10).then((hash) => {
-//       new User({ username: req.body.username }),
-//       req.body.password,
-//       (err, user) => {
-//         if (err) {
-//           res.status(500).json({ err: err });
-//         } else {
-//           const token = getToken({ _id: user._id });
-//           const refreshToken = getRefreshToken({ _id: user._id });
-//           user.refreshToken.push({ refreshToken });
-//           user
-//             .save()
-//             .then(() => {
-//               res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-//               // res
-//               //   .status(201)
-//               //   .json({ message: "User created !", token, refreshToken })
-//               //   .cookie("refreshToken", refreshToken, COOKIE_OPTIONS);
-//             })
-//             .catch((error) => res.status(400).json({ error }));
-//         }
-//       }
-//     );
-//   }
-//   // })
-//   // .catch((error) => res.status(500).json({ error }));
-// };
+const login = (req, res, next) => {
+  User.findOne({ username: req.body.username }).then((user) => {
+    if (!user) {
+      return res.status(401).json({ error: "User not found !" });
+    }
+    bcrypt
+      .compare(req.body.password, user.password)
+      .then((valid) => {
+        if (!valid) {
+          return res.status(401).json({ error: "Incorrect password !" });
+        }
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+        res.status(200).json({
+          success: true,
+          auth: true,
+          userId: user._id,
+          
+          token: jwt.sign(
+            payload,
+            // { userId: user._id, username: user.username },
+            SECRET_KEY
+          ),
+        });
+      })
+      .catch((error) => res.status(500).json({ error }));
+  });
+};
 
-// exports.login = (req, res) => {
-//   User.findOne({ username: req.body.username }).then((user) => {
-//     if (!user) {
-//       return res.status(401).json({ error: "User not found !" });
-//     }
-//     bcrypt
-//       .compare(req.body.password, user.password)
-//       .then((valid) => {
-//         if (!valid) {
-//           return res.status(401).json({ error: "Incorrect password !" });
-//         }
-//         res.status(200).json({
-//           auth: true,
-//           userId: user._id,
-//           token: jwt.sign(
-//             { userId: user._id, username: user.username },
-//             SECRET_KEY,
-//             {
-//               expiresIn: 60,
-//             }
-//           ),
-//         });
-//       })
-//       .catch((error) => res.status(500).json({ error }));
-//   });
-// };
+const userInfo = (req, res, next) => {
+  res.send(req.body?.user);
+};
+    
 
-// exports.login = (req, res) => {
-//   const token = getToken({ _id: req.user._id })
-//   const refreshToken = getRefreshToken({ _id: req.user._id })
-//   User.findById(req.user._id).then(
-//     user => {
-//       user.refreshToken.push({ refreshToken })
-//       user.save((err, user) => {
-//         if (err) {
-//           res.statusCode = 500
-//           res.send(err)
-//         } else {
-//           res.cookie("refreshToken", refreshToken, COOKIE_OPTIONS)
-//           res.send({ success: true, token })
-//         }
-//       })
-//     },
-//     err => next(err)
-//   )
-// }
+const signup = (req, res, next) => {
+  bcrypt
+    .hash(req.body.password, 10)
+    .then((hash) => {
+      const user = new User({
+        username: req.body.username,
+        password: hash,
+      });
+      user
+        .save()
+        .then(() => res.status(201).json({ message: "User created !" }))
+        .catch((error) => res.status(400).json({ error }));
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
+
+const refreshToken = (req, res, next) => {
+  const { signedCookies = {} } = req
+  const { refreshToken } = signedCookies
+
+  if (refreshToken) {
+    try {
+      const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
+      const userId = payload._id
+      User.findOne({ _id: userId }).then(
+        user => {
+          if (user) {
+            // Find the refresh token against the user record in database
+            const tokenIndex = user.refreshToken.findIndex(
+              item => item.refreshToken === refreshToken
+            )
+
+            if (tokenIndex === -1) {
+              res.statusCode = 402
+              res.send("Unauthorized")
+            } else {
+              const token = getToken({ _id: userId })
+              // If the refresh token exists, then create new one and replace it.
+              const newRefreshToken = getRefreshToken({ _id: userId })
+              user.refreshToken[tokenIndex] = { refreshToken: newRefreshToken }
+              user.save((err, user) => {
+                if (err) {
+                  res.statusCode = 500
+                  res.send(err)
+                } else {
+                  res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS)
+                  res.send({ success: true, token })
+                }
+              })
+            }
+          } else {
+            res.statusCode = 403
+            res.send("Unauthorized")
+          }
+        },
+        err => next(err)
+      )
+    } catch (err) {
+      res.statusCode = 404
+      res.send("Unauthorized")
+    }
+  } else {
+    res.statusCode = 405
+    res.send("Unauthorized")
+  }
+}
 
 exports.googleLogin = async (req, res) => {
   const token = req.body;
@@ -150,9 +167,15 @@ exports.googleLogin = async (req, res) => {
   res.json(user);
 };
 
-exports.register = (req, res) => {
-  (req, res) => {
-    if (error) return res.status(404).json({ error: "Unauthorized" });
-    return res.status(200).json({ auth: true, user: req.user });
-  };
+//export modules
+module.exports = {
+  COOKIE_OPTIONS,
+  getToken,
+  getRefreshToken,
+  verifyUser,
+  login,
+  signup,
+  userInfo,
+  logout,
+  refreshToken,
 };

@@ -43,8 +43,9 @@ export default function Homepage() {
       <div className="header">
         <span>AREA</span>
         <button className="fontDifferentPage">Homepage</button>
-        <button className="fontDifferentPage" onClick={() => {window.location.href = '/linkpage' }}>Linkpage</button>
-        <button className="signOut" onClick={ logoutHandler }>Sign out</button>
+        <button className="fontDifferentPage" onClick={() => {window.location.href = '/createpage' }}>Create action</button>
+        <button className="fontDifferentPage" onClick={() => {window.location.href = '/linkpage' }}>Link account</button>
+        <button className="signOut" onClick={() => { localStorage.clear(); window.location.href = '/login' }}>Sign out</button>
         {/* <button onClick={() => axios.post(`http://localhost:8080/api/auth/isAuthenticated`, JSON.stringify({ token }), { headers: { "Content-Type": "application/json" } })
           .then(res => {
             console.log("token",token);
@@ -60,10 +61,10 @@ export default function Homepage() {
           }> check jwt </button> */}
       </div>
       <div className="cardsContainer">
-        <Cards title={"Device"} action={"Choose your device"}/>
+        {/* <Cards title={"Service"} action={"Choose your service"} cards={"Youtube"} cards2={"Weather"} cards3={"Formule 1"} cards4={"NASA"}/>
         <Cards title={"Action"} action={"Choose your action"}/>
-        <Cards title={"Device"} action={"Choose your device"}/>
-        <Cards title={"Reaction"} action={"Choose your reaction"}/>
+        <Cards title={"Service"} action={"Choose your service"} cards={"Telegram"} cards2={"Discord"}/>
+        <Cards title={"Reaction"} action={"Choose your reaction"}/> */}
       </div>
     </div>
   );

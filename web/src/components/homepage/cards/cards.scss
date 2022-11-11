@@ -34,4 +34,38 @@
         align-self: center;
         margin: 10px;
     }
+
+    .chooseCards {
+        margin-top: 80px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        background-color: #0E1121;
+        border: none;
+        display: flex;
+        align-self: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #0E1121;
+            color: #3A4065;
+        }
+    }
+
+    .chooseCards2 {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        background-color: #0E1121;
+        border: none;
+        display: flex;
+        align-self: center;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #0E1121;
+            color: #3A4065;
+        }
+    }
 }

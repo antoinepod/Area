@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
     }
     jwt.verify(token, SECRET_KEY, (error, decoded) => {
         if (error) {
-            return res.status(401).json({ error: "Unauthorized" });
+            return res.status(404).json({ error: "Unauthorized" });
         }
         req.user = decoded;
         res.json({ auth: "true" });

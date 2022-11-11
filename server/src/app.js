@@ -50,8 +50,8 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   session({
     secret: "akjjkjnisaiuu8998323jdkadsih892rhoisdfasl",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
       maxAge: 60000,
     },
@@ -60,6 +60,7 @@ app.use(
 
 app.use(cors());
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/area", areaRoutes);
@@ -90,8 +91,7 @@ app.get("/profile", (req, res) => {
 app.get("/about.json", (req, res) => {
   res.json({
     client: {
-      host: req.ip,
-      host1: ip.address(),
+      host: req.ip.split(":").pop(),
     },
     server: {
       current_time: new Date().getTime(),
