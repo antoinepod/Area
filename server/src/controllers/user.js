@@ -22,17 +22,10 @@ const COOKIE_OPTIONS = {
 };
 
 const getToken = (user) => {
-  return jwt.sign(user, process.env.JWT_SECRET, {
-    expiresIn: eval(process.env.SESSION_EXPIRY),
+  return jwt.sign({id: user.id}, process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba", {
+    expiresIn: 86400 // 24 hours,
   });
 }; 
-
-const getRefreshToken = (user) => {
-  const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
-    expiresIn: eval(process.env.REFRESH_TOKEN_EXPIRY),
-  });
-  return refreshToken;
-};
 
 const logout = (req, res, next) => {
   req.logout((err)=> {
@@ -64,7 +57,6 @@ const login = (req, res, next) => {
         }
         const payload = {
           id: user.id,
-          name: user.name
         };
         res.status(200).json({
           success: true,
@@ -122,7 +114,6 @@ exports.googleLogin = async (req, res) => {
 module.exports = {
   COOKIE_OPTIONS,
   getToken,
-  getRefreshToken,
   login,
   isAuthenticated,
   signup,

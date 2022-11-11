@@ -27,11 +27,12 @@ export default function Login() {
       );
   };
 
-  // const handleGoogleLogin = async googleData => {
-  //   const res = await axios.post('http://localhost:8080/api/auth/google', { tokenId: googleData.tokenId });
-  //   const data = await res.json()
-  //   // store returned user somehow
-  // } 
+  const handleGoogleLogin = async googleData => {
+    const res = await axios.post('http://localhost:8080/api/auth/google');
+    const data = await res.json()
+    localStorage.setItem("token", data.token);
+    console.log(data)
+  } 
 
 return (
   <div className="login">
