@@ -10,7 +10,7 @@ export default function Homepage() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/auth/user`, { headers: { "Authorization": `Bearer ${token}` }})
+    axios.get(`http://localhost:8080/api/auth/user`, { headers: { "Authorization": `Bearer ${token}` }})
       .then(res => {
       console.log(res);
       console.log(res.data);

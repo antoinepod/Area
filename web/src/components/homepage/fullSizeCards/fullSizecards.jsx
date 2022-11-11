@@ -9,7 +9,7 @@ export default function FullSizecards() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`/api/area/yougram`, JSON.stringify({ channelID, chatID }), { headers: { "Content-Type": "application/json" } })
+        axios.post(`http://localhost:8080/api/area/yougram`, JSON.stringify({ channelID, chatID }), { headers: { "Content-Type": "application/json" } })
           .then(res => {
             console.log(res);
             console.log(res.data);

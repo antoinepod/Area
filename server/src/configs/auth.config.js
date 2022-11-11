@@ -1,2 +1,6 @@
-const SECRET_KEY = 'asterix-needs-permit-a-38';
-module.exports = { SECRET_KEY };
+module.exports = {
+    jwtSecret: "s0m3$3Cret$h0lyC0d3&$",
+    jwtSession: {
+        session: false
+    }
+};

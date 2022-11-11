@@ -19,17 +19,18 @@ export default function Register() {
         password: password,
       };
 
-      axios.post(`/api/auth/signup`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" } })
+      axios.post(`http://localhost:8080/api/auth/signup`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" } })
         .then(res => {
           console.log(res);
           console.log(res.data);
+          localStorage.setItem("userInfo", JSON.stringify(user));
+          window.location.href = '/login'
         })
         .catch(err => {
           console.log(err.response.data); 
         }
         );
-        localStorage.setItem("userInfo", JSON.stringify(user));
-        window.location.href = '/login'
+
     }
   };
 

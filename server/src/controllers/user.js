@@ -25,7 +25,7 @@ const getToken = (user) => {
   return jwt.sign(user, process.env.JWT_SECRET, {
     expiresIn: eval(process.env.SESSION_EXPIRY),
   });
-};
+}; 
 
 const getRefreshToken = (user) => {
   const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {
@@ -33,8 +33,6 @@ const getRefreshToken = (user) => {
   });
   return refreshToken;
 };
-
-const verifyUser = passport.authenticate("jwt", { session: false })
 
 const logout = (req, res, next) => {
   req.logout((err)=> {
@@ -47,6 +45,11 @@ const logout = (req, res, next) => {
     }
   })
 };
+
+const isAuthenticated = (req, res, next) => {
+  res.status(200).json({ auth: true });
+};
+
 
 const login = (req, res, next) => {
   User.findOne({ username: req.body.username }).then((user) => {
@@ -70,7 +73,6 @@ const login = (req, res, next) => {
           
           token: jwt.sign(
             payload,
-            // { userId: user._id, username: user.username },
             SECRET_KEY
           ),
         });
@@ -80,7 +82,7 @@ const login = (req, res, next) => {
 };
 
 const userInfo = (req, res, next) => {
-  res.send(req.body?.user);
+  res.send(req.body.user);
 };
     
 
@@ -99,57 +101,6 @@ const signup = (req, res, next) => {
     })
     .catch((error) => res.status(500).json({ error }));
 };
-
-const refreshToken = (req, res, next) => {
-  const { signedCookies = {} } = req
-  const { refreshToken } = signedCookies
-
-  if (refreshToken) {
-    try {
-      const payload = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)
-      const userId = payload._id
-      User.findOne({ _id: userId }).then(
-        user => {
-          if (user) {
-            // Find the refresh token against the user record in database
-            const tokenIndex = user.refreshToken.findIndex(
-              item => item.refreshToken === refreshToken
-            )
-
-            if (tokenIndex === -1) {
-              res.statusCode = 402
-              res.send("Unauthorized")
-            } else {
-              const token = getToken({ _id: userId })
-              // If the refresh token exists, then create new one and replace it.
-              const newRefreshToken = getRefreshToken({ _id: userId })
-              user.refreshToken[tokenIndex] = { refreshToken: newRefreshToken }
-              user.save((err, user) => {
-                if (err) {
-                  res.statusCode = 500
-                  res.send(err)
-                } else {
-                  res.cookie("refreshToken", newRefreshToken, COOKIE_OPTIONS)
-                  res.send({ success: true, token })
-                }
-              })
-            }
-          } else {
-            res.statusCode = 403
-            res.send("Unauthorized")
-          }
-        },
-        err => next(err)
-      )
-    } catch (err) {
-      res.statusCode = 404
-      res.send("Unauthorized")
-    }
-  } else {
-    res.statusCode = 405
-    res.send("Unauthorized")
-  }
-}
 
 exports.googleLogin = async (req, res) => {
   const token = req.body;
@@ -172,10 +123,9 @@ module.exports = {
   COOKIE_OPTIONS,
   getToken,
   getRefreshToken,
-  verifyUser,
   login,
+  isAuthenticated,
   signup,
   userInfo,
   logout,
-  refreshToken,
 };

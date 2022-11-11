@@ -20,7 +20,7 @@ const areaRoutes = require("./routes/area");
 const actionRoutes = require("./routes/action");
 const reactionRoutes = require("./routes/reaction");
 const db = require("./models/index");
-
+const auth = require("./middlewares/auth");
 // require("./src/strategies/jwtStrategy")
 // require("./src/strategies/localStrategy")
 
@@ -43,8 +43,6 @@ require("./strategies/localStrategies");
 require("./strategies/googleStrategy");
 require("./controllers/user");
 
-app.use(bodyParser.json());
-
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(
@@ -58,6 +56,10 @@ app.use(
   })
 );
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// app.use(auth);
 app.use(cors());
 app.use(passport.initialize());
 app.use(passport.session());

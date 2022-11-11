@@ -11,7 +11,7 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`/api/auth/login`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
+    axios.post(`http://localhost:8080/api/auth/login`, JSON.stringify({ username, password }), { headers: { "Content-Type": "application/json" }})
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -22,6 +22,7 @@ export default function Login() {
       })
       .catch(err => {
         console.log(err.response);
+        alert('Wrong username or password');
       }
       );
   };

@@ -5,12 +5,13 @@ const JwtStrategy = require("passport-jwt").Strategy,
 
 const opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+// opts.jwtFromRequest =ExtractJwt.fromUrlQueryParameter('secret_token') ;
 
 opts.secretOrKey = process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba"
 
 passport.use(
   new JwtStrategy(opts, (jwt_payload, done) => {
-    User.findById(jwt_payload._id)
+    User.findById(jwt_payload.id)
       .then(user => {
         if (user) {
           return done(null, user);
@@ -20,3 +21,4 @@ passport.use(
       .catch(err => console.log(err));
   })
 );
+
