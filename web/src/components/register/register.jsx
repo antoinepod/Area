@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import './register.scss';
+import { UserContext } from '../../utils/userContext';
 
 export default function Register() {
   const [username, setUsername] = useState("");
   // const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [userContext, setUserContext] = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,6 +25,9 @@ export default function Register() {
         .then(res => {
           console.log(res);
           console.log(res.data);
+          setUserContext(oldValues => {
+            return { ...oldValues, token: res.data.token }
+          })
         })
         .catch(err => {
           console.log(err.response.data); 

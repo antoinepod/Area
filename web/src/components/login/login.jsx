@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { setAuthToken } from '../../utils/setAuthToken';
 import './login.scss';
+import { UserContext } from '../../utils/userContext';
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [userContext, setUserContext] = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +18,9 @@ export default function Login() {
         console.log(res.data);
         const token  =  res.data.token;
         localStorage.setItem("token", token);
+        setUserContext(current => {
+          return { ...current, token: res.data.token }
+        })
         setAuthToken(token);
         window.location.href = '/'
       })
@@ -25,11 +30,11 @@ export default function Login() {
       );
   };
 
-  const handleGoogleLogin = async googleData => {
-    const res = await axios.post('http://localhost:8080/api/auth/google', { tokenId: googleData.tokenId });
-    const data = await res.json()
-    // store returned user somehow
-  } 
+  // const handleGoogleLogin = async googleData => {
+  //   const res = await axios.post('http://localhost:8080/api/auth/google', { tokenId: googleData.tokenId });
+  //   const data = await res.json()
+  //   // store returned user somehow
+  // } 
 
 return (
   <div className="login">
