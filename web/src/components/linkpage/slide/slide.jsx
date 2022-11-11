@@ -2,8 +2,6 @@ import React from "react";
 import './slide.scss';
 import imgDiscord from './../assets/discord-logo.png'
 import imgTelegram from './../assets/telegram-logo.png'
-import imgInstagram from './../assets/instagram-logo.png'
-import imgOutlook from './../assets/outlook-logo.png'
 
 const proprietes = {
 

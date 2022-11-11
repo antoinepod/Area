@@ -8,7 +8,6 @@ export default function Register() {
   // const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const [userContext, setUserContext] = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,9 +23,6 @@ export default function Register() {
         .then(res => {
           console.log(res);
           console.log(res.data);
-          setUserContext(oldValues => {
-            return { ...oldValues, token: res.data.token }
-          })
         })
         .catch(err => {
           console.log(err.response.data); 

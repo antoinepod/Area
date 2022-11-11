@@ -8,7 +8,6 @@ import areaLogo from "./assets/area-logo.png"
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userContext, setUserContext] = useContext(UserContext)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,9 +17,6 @@ export default function Login() {
         console.log(res.data);
         const token  =  res.data.token;
         localStorage.setItem("token", token);
-        setUserContext(current => {
-          return { ...current, token: res.data.token }
-        })
         setAuthToken(token);
         window.location.href = '/'
       })
