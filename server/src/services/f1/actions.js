@@ -17,7 +17,7 @@ const parseData = (data) => {
     tab[i + 3] += " (" + results[i].Constructor.name + ")";
   }
 
-  return(tab.join('%0A'));
+  return(tab.join('\n'));
 };
 
 exports.getLastRace = async (req, res) => {

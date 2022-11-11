@@ -9,7 +9,7 @@ const parseData = (data) => {
   tab.push("");
   tab.push(data.hdurl);
 
-  return(tab.join('%0A'));
+  return(tab.join('\n'));
 };
 
 exports.getLastPicture = async (req, res) => {
