@@ -2,9 +2,15 @@ name: Docker Compose Actions Workflow
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+=======
+    branches: [ "Dev" ]
+  pull_request:
+    branches: [ "Dev" ]
+>>>>>>> Dev
     
 jobs:
   test:
@@ -15,4 +21,7 @@ jobs:
       - name: Build the stack
         run: docker-compose up -d --build
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Dev

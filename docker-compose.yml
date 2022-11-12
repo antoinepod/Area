@@ -1,36 +1,70 @@
-version: "3"
+version: "3.7"
 
 services:
+  mongo:
+    container_name: mongo-dev
+    image: mongo
+    # environment:
+      # - MONGO_INITDB_ROOT_USERNAME=admin
+      # - MONGO_INITDB_DATABASE=auth
+      # - MONGO_INITDB_ROOT_PASSWORD=pass
+    networks: 
+      - db_network
+    ports:
+      - '27017:27017'
+    volumes: 
+      - ./data:/data/db
+
+  mobile:
+    build: ./mobile
+    container_name: mobile_container_dev
+    image: mobile_img_dev
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - shared-volume:/android/app/build/outputs/apk/release/
+
   server:
     build: ./server
-    container_name: server_backend
-    image: server_img
-    # dockerfile: Dockerfile
+    container_name: server_container_dev
+    image: server_img_dev
     ports:
-      - '4000:4000'
-    volumes:
-      - ./server:/app
-      # - .server/:/app/node_modules
+      - '8080:8080'
     networks:
       - web_network
+      - db_network
+    environment:
+      - NODE_ENV=production
+    links:
+      - mongo
+    depends_on:
+      - mongo
 
   web:
-    build: ./web
-    container_name: web_client
-    image: web_img
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=production
+    container_name: web_container_dev
+    image: web_img_dev
     ports:
-      - '3000:3000'
-    volumes:
-      - ./web:/app/
-      # - .web/:/app/node_modules
+      - '8081:8081'
     depends_on:
       - server
     networks:
       - web_network
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - shared-volume:/mobile_apk
 
 volumes:
   server:
   web:
+  data:
+  shared-volume:
 
 networks:
   web_network:
+  db_network:

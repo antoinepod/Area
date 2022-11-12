@@ -1,0 +1,25 @@
+{
+    "client": {
+        "host": "request.getRemoteAddr()"
+    },
+    "server": {
+        "current_time": "",
+        "services": [{
+            "name": "",
+            "actions": [{
+                "name": "",
+                "description": ""
+            }, {
+                "name": "",
+                "description": ""
+            }, {
+                "name": "",
+                "description": ""
+            }],
+            "reactions": [{
+                "name": "",
+                "description": ""
+            }]
+        }]
+    }
+}

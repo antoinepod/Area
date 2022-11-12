@@ -1,0 +1,64 @@
+version: "3.7"
+
+services:
+  mongo:
+    container_name: mongo-dev
+    image: mongo
+    # environment:
+      # - MONGO_INITDB_ROOT_USERNAME=admin
+      # - MONGO_INITDB_DATABASE=auth
+      # - MONGO_INITDB_ROOT_PASSWORD=pass
+    networks: 
+      - db_network
+    ports:
+      - '27017:27017'
+    volumes: 
+      - ./data:/data/db
+    
+  server:
+    build: ./server
+    container_name: server_container_dev
+    # dockerfile: Dockerfile.dev
+    image: server_img_dev
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./server:/app
+    networks:
+      - web_network
+      - db_network
+    environment:
+      - NODE_ENV=development
+    links:
+      - mongo
+    depends_on:
+      - mongo
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+      args:
+        - NODE_ENV=development
+    container_name: web_container_dev
+    image: web_img_dev
+    ports:
+      - '8081:8081'
+    volumes:
+      - ./web:/app/
+      # - /app/node_modules
+    depends_on:
+      - server
+    networks:
+      - web_network
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  server:
+  web:
+  data:
+
+networks:
+  web_network:
+  db_network:

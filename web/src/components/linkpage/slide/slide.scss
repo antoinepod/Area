@@ -1,0 +1,86 @@
+.container {
+    // margin-top: 20px;
+    margin: 0 auto;
+    position: relative;
+    width: 70%;
+    height: 0;
+    padding-bottom: 40%;
+    // background-color: #0E1121;
+    background-color: #fff;
+    border: 1px solid;
+    border-radius: 10px;
+    border-color: #3A4065;
+}
+
+.slide_img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.slide_img img {
+    width: 100%;
+    height: 100%;
+}
+
+#img_discord, #img_telegram, #img_instagram {
+    display: none;
+}
+
+.prev, .next {
+    width: 4%;
+    height: 100%;
+    position: absolute;
+    border-radius: 4px;
+    top: 0;
+    background: #3A4065;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+.nav {
+    width: 100%;
+    height: 11px;
+    bottom: 12%;
+    position: absolute;
+    text-align: center;
+    z-index: 99;
+}
+
+.dots {
+    top: -5px;
+    width: 18px;
+    height: 18px;
+    margin: 0 4px;
+    position: relative;
+    border-radius: 50%;
+    display: inline-block;
+    background: #020410;
+    cursor: pointer;
+}
+
+.slide_img {
+    z-index: -1;
+}
+
+#img_discord:checked ~ #one_discord,
+#img_telegram:checked ~ #two_telegram,
+#img_instagram:checked ~ #three_instagram,
+#img_outlook:checked ~ #four_outlook {
+    z-index: 9;
+}
+
+#img_discord:checked ~ .nav #dot1,
+#img_telegram:checked ~ .nav #dot2,
+#img_instagram:checked ~ .nav #dot3,
+#img_outlook:checked ~ .nav #dot4 {
+    background: #3A4065;
+}
