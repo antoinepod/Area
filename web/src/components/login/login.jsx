@@ -21,7 +21,7 @@ export default function Login() {
         window.location.href = '/'
       })
       .catch(err => {
-        console.log(err.response);
+        console.log(err);
         alert('Wrong username or password');
       }
       );
@@ -30,6 +30,7 @@ export default function Login() {
   const handleGoogleLogin = async googleData => {
     const res = await axios.post('http://localhost:8080/api/auth/google');
     const data = await res.json()
+    localStorage.setItem('username', username);
     localStorage.setItem("token", data.token);
     console.log(data)
   } 

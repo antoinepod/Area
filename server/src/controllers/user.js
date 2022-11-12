@@ -5,12 +5,9 @@ const jwt = require("jsonwebtoken");
 const SECRET_KEY  = process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba"
 const middlewareAuth = require("../middlewares/auth");
 const passport = require("passport");
-// const connectEnsureLogin = require('connect-ensure-login'); //authorization
+const ExtractJwt = require("passport-jwt").ExtractJwt
 
 const dev = process.env.NODE_ENV !== "production";
-
-const { OAuth2Client } = require("google-auth-library");
-const client = new OAuth2Client(process.env.CLIENT_ID);
 
 
 const COOKIE_OPTIONS = {
@@ -26,6 +23,7 @@ const getToken = (user) => {
     expiresIn: 86400 // 24 hours,
   });
 }; 
+
 
 const logout = (req, res, next) => {
   req.logout((err)=> {
@@ -61,6 +59,7 @@ const login = (req, res, next) => {
         res.status(200).json({
           success: true,
           auth: true,
+          username: user.username,
           userId: user._id,
           
           token: jwt.sign(
@@ -74,7 +73,20 @@ const login = (req, res, next) => {
 };
 
 const userInfo = (req, res, next) => {
-  res.send(req.body.user);
+  // const token = req.body.token;
+  const rawToken =  req.headers['authorization']; // Express headers are auto converted to lowercase
+  const token  =rawToken.split(' ')[1];
+  // res.send(token);
+  const decoded = jwt.verify(token, SECRET_KEY);
+  User.findById(decoded.id)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ error: "User not found !" });
+      } else {
+        const {password, ...data} = user._doc;
+        return res.status(200).json(data);
+      }
+    })
 };
     
 
