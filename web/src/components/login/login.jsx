@@ -70,7 +70,7 @@ return (
           </button>
         </form>
     </div>
-    
-  </div>
+    <a href="../../app.apk" download style={{color:'white'}}>Download the app</a>
+    </div>
 );
 }
