@@ -27,12 +27,12 @@ exports.getLastRace = async (req, res) => {
       const prev = req.body.previous;
       const current = parseData(response.data);
       if (prev !== undefined && prev !== "" && prev != current)
-        return res.status(201).json({"changed": true, "data": current});
+        return res.status(201).json({"changed": true, "current": current});
       else
-        return res.status(200).json({"changed": false, "data": current});
+        return res.status(200).json({"changed": false, "current": current});
     })
     .catch((err) => {
       console.log(err);
-      return res.status(400).json({"changed": false, "data": req.body.previous, "error": err});
+      return res.status(400).json({"changed": false, "current": req.body.previous, "error": err});
     });
 };

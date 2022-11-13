@@ -6,7 +6,7 @@ router.post('/create', areaCtrl.create);
 router.delete('/delete', areaCtrl.delete);
 router.post('/update', areaCtrl.update);
 router.get('/get', areaCtrl.get);
-
+router.post('/setLastAction', areaCtrl.setLastAction);
 
 
 module.exports = router

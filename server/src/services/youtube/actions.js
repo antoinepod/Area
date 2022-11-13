@@ -1,40 +1,18 @@
 const axios = require("axios");
 const cheerio = require('cheerio')
 
-
-// exports.newVideo = async (req, res) => {
-//   const youtubeToken = process.env.YOUTUBE_TOKEN;
-//   const channelId = await utils.getChannelId(req.body.url);
-//   console.log("channelId = " + channelId);
-
-//   let int = setInterval(async () => {
-//     await axios
-//       .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${req.body.channelId}&maxResults=1&order=date&type=video&key=${youtubeToken}`)
-//       .then((response) => {
-//         console.log(response.data.items[0].id.videoId);
-//         // const obj = JSON.parse(json);
-//         if (id != 0 && response.data.items[0].id.videoId != id) {
-//           console.log("New video :" + response.data);
-//         }
-//         id = response.data.items[0].id.videoId;
-//         console.log(response.data.items[0].id.videoId);
-//         return res.status(201).json({"new_video": false, "data": response.data.items[0]});
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   }, 30000);
-// };
+const youtubeToken = process.env.YOUTUBE_TOKEN;
 
 const parseData = (data) => {
   const tab = [];
+  tab.push("(YouTube)\n");
   tab.push(data.items[0].snippet.channelTitle + " just uploaded a new video !");
   tab.push("");
   tab.push(data.items[0].snippet.title.replaceAll(`&#39;`, `'`));
   tab.push("");
   tab.push("https://www.youtube.com/watch?v=" + data.items[0].id.videoId);
 
-  return tab.join("\n");
+  return tab.join('\n');
 }
 
 const checkUrl = (url) => url.indexOf('youtube.com') !== -1 || url.indexOf('youtu.be') !== -1
@@ -54,8 +32,7 @@ const getChannelId = async (url) => {
 }
 
 exports.newVideo = async (req, res) => {
-  const youtubeToken = process.env.YOUTUBE_TOKEN;
-  const channelId = await getChannelId(req.body.url);
+  const channelId = await getChannelId(req.body.data);
 
   await axios
     .get(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${channelId}&maxResults=1&order=date&type=video&key=${youtubeToken}`)
@@ -63,12 +40,12 @@ exports.newVideo = async (req, res) => {
       const prev = req.body.previous;
       const current = parseData(response.data);
       if (prev !== undefined && prev !== "" && prev != current)
-        return res.status(201).json({"changed": true, "data": current});
+        return res.status(201).json({"changed": true, "current": current});
       else
-        return res.status(200).json({"changed": false, "data": current});
+        return res.status(200).json({"changed": false, "current": current});
     })
     .catch((err) => {
       console.log(err);
-      return res.status(400).json({"changed": false, "data": req.body.previous, "error": err});
+      return res.status(400).json({"changed": false, "current": req.body.previous, "error": err});
     });
 }
