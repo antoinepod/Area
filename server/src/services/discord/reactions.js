@@ -42,6 +42,24 @@ exports.messageInChannel = async (req, res) => {
   return res.status(200).json({ succes: true, result: 'Discord: Message sent in channel.' })
 }
 
+exports.messageEveryone = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  var Guilds = client.guilds.cache.map(guild => guild.id);
+
+  if (req.body.message == undefined || req.body.message == '')
+    return res.status(400).json({ succes: false, error: 'Discord: Empty message' });
+
+  Guilds.forEach(guild => {
+    client.guilds.fetch(guild).then((v) => {
+      var c = v.channels.cache.find(channel => channel.name === "général")
+      if (c)
+        c.send("@everyone\n" + req.body.message)
+    });
+  });
+  return res.status(200).json({ succes: true, result: 'Discord: Message sent in channel.' })
+}
+
 exports.sendPM = async (req, res) => {
   if (req.body.userId == undefined || req.body.userId == '')
     return res.status(400).json({ succes: false, error: 'Discord: Empty userId' });

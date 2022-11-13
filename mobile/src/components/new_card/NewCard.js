@@ -34,14 +34,14 @@ export default function ({ navigation }) {
   const handlePress = () => setExpanded(!expanded);
 
   const actions = [
-    ["F1", "racing-helmet", "#FF1801", ["Get last race results"]],
+    ["F1", "racing-helmet", "#FF1801", ["Get last race results", "Get last qualifying results"]],
     ["NASA", "space-station", "navy", ["Astronomy picture of the day is available"]],
-    ["Weather", "weather-partly-rainy", "green", ["It starts/stops freezing", "It starts/stops raining"]],
+    ["Weather", "weather-partly-rainy", "green", ["It starts/stops freezing", "It starts/stops raining", "The wind exceeds/drops below 80 km/h", "The sun rises/sets"]],
     ["YouTube", "youtube", "#FF0000", ["A youtuber posts a new video"]]
   ]
 
   const reactions = [
-    ["Discord", "discord", "#5865F2", ["Send a message in the general channel with your @", "Send you a private message"]],
+    ["Discord", "discord", "#5865F2", ["Send a message in the general channel with your @", "Send a message in the general channel and ping everyone", "Send you a private message"]],
     ["Telegram", "message-processing", "#0088cc", ["Area's bot sends you a message"]],
     // ["Twitter", "twitter", "#00acee", ["Tweet a message with your @", "Send you a direct message"]],
   ]
@@ -82,7 +82,7 @@ export default function ({ navigation }) {
 
   const handleNext  = () => {
     if (selectedAction) {
-      if (actionData === "" && (selectedAction.startsWith("It starts/stops") || selectedAction.startsWith("A youtuber")))
+      if (actionData === "" && (actions[2][3].includes(selectedAction) || actions[3][3].includes(selectedAction)))
         setVisibleData(true);
       else
         setStatus(true);
@@ -102,7 +102,7 @@ export default function ({ navigation }) {
   const handleCreate = async () => {
     if (!selectedReaction)
       return ToastAndroid.show('Please select a reaction', ToastAndroid.SHORT);
-    else if (reactionData === "" && (selectedReaction.startsWith("Send a message in the general") || selectedReaction.startsWith("Send you a private") || selectedReaction.startsWith("Area's bot sends")))
+    else if (reactionData === "" && (reactions[0][3].includes(selectedReaction) || reactions[1][3].includes(selectedReaction)))
       setVisibleData(true);
     else {
       await axios({

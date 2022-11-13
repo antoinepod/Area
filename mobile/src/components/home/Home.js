@@ -21,12 +21,16 @@ import { useIsFocused } from '@react-navigation/native';
 var servicesMap = new Map();
 
 servicesMap.set("Get last race results", ["F1", "racing-helmet", "#FF1801"]);
+servicesMap.set("Get last qualifying results", ["F1", "racing-helmet", "#FF1801"]);
 servicesMap.set("Astronomy picture of the day is available", ["NASA", "space-station", "navy"]);
 servicesMap.set("It starts/stops freezing", ["Weather", "weather-partly-rainy", "green"]);
 servicesMap.set("It starts/stops raining", ["Weather", "weather-partly-rainy", "green"]);
+servicesMap.set("The wind exceeds/drops below 80 km/h", ["Weather", "weather-partly-rainy", "green"]);
+servicesMap.set("The sun rises/sets", ["Weather", "weather-partly-rainy", "green"]);
 servicesMap.set("A youtuber posts a new video", ["YouTube", "youtube", "#FF0000"]);
 
 servicesMap.set("Send a message in the general channel with your @", ["Discord", "discord", "#5865F2"]);
+servicesMap.set("Send a message in the general channel and ping everyone", ["Discord", "discord", "#5865F2"]);
 servicesMap.set("Send you a private message", ["Discord", "discord", "#5865F2"]);
 servicesMap.set("Area's bot sends you a message", ["Telegram", "message-processing", "#0088cc"]);
 
