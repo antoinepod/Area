@@ -11,25 +11,24 @@ export default function Homepage({ user, setUser }) {
   const token = localStorage.getItem("token");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     axios.get(`http://localhost:8080/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(res => {
         console.log(res);
-        console.log(res.data);
+        // console.log(res.data);
         localStorage.setItem("user", res.data.username);
-
         if (res.status === 401) {
           window.location.reload()
         }
         setData(() => res.data);
-
         setLoading(false);
       })
       .catch(err => {
         console.log(err.response.data);
       });
-  }, []);
+  }, [refresh]);
 
   const logoutHandler = () => {
     localStorage.clear();
@@ -54,7 +53,7 @@ export default function Homepage({ user, setUser }) {
           {
             (data.areas.length !== 0) ?
             data.areas.map((item, n) => {
-              return <Areas key={n} action={data.areas[n].action} reaction={data.areas[n].reaction} data={data.areas[n]} />
+              return <Areas key={n} action={data.areas[n].action} reaction={data.areas[n].reaction} data={data.areas[n]} refresh={refresh} setRefresh={setRefresh} />
             })
             :  <div className="noArea"
             style={{

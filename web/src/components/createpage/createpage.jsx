@@ -17,8 +17,6 @@ export default function Createpage({ data }) {
     switchReaction();
   }, []);
 
-  console.log(user)
-
   const handleSubmit = () => {
     // alert(data.username);
     if (action === "" || reaction === "") {
