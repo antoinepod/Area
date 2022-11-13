@@ -65,6 +65,16 @@ export default function Createpage({ data }) {
           <span style={{ color: 'white' }}>Please type the name of your city</span>
           <input type={"text"} placeholder={"Name of your city"} onChange={(e) => setDataAction(e.target.value)} />
         </>)
+      case "The wind exceeds/drops below 80 km/h":
+          return (<>
+            <span style={{ color: 'white' }}>Please type the name of your city</span>
+            <input type={"text"} placeholder={"Name of your city"} onChange={(e) => setDataAction(e.target.value)} />
+          </>)
+      case "The sun rises/sets":
+        return (<>
+          <span style={{ color: 'white' }}>Please type the name of your city</span>
+          <input type={"text"} placeholder={"Name of your city"} onChange={(e) => setDataAction(e.target.value)} />
+        </>)
     }
   }
 
@@ -78,10 +88,13 @@ export default function Createpage({ data }) {
         return (<><span style={{ color: 'white' }}>Send /getmyid in this <a href={"https://discord.gg/YadBxFVjrb"} target="_blank"> Discord Server</a> to get your discord id</span>
           <input type={"text"} placeholder={"your discord ID"} onChange={(e) => setDataReaction(e.target.value)} /></>)
       case "Area's bot sends you a message":
-        return (<><span style={{ color: 'white' }}>Send /getmyid in this <a href={"https://discord.gg/YadBxFVjrb"} target="_blank"> Discord Server</a> to get your discord id</span>
+        return (<><span style={{ color: 'white' }}>Send /getmyid in this <a href={"https://t.me/area_t3l3gr4m_bot"} target="_blank"> Telegram bot </a> to get your telegram chat id</span>
            <input type={"text"} placeholder={"Telegram Chat ID"} onChange={(e) => setDataReaction(e.target.value)} /> </>
            );
       case "Send a message in the general channel with your @":
+        return (<><span style={{ color: 'white' }}>Send /getmyid in this <a href={"https://discord.gg/YadBxFVjrb"} target="_blank"> Discord Server</a> to get your discord id</span>
+          <input type={"text"} placeholder={"your discord ID"} onChange={(e) => setDataReaction(e.target.value)} /></>)
+      case "Send a message in the general channel and ping everyone":
         return (<><span style={{ color: 'white' }}>Send /getmyid in this <a href={"https://discord.gg/YadBxFVjrb"} target="_blank"> Discord Server</a> to get your discord id</span>
           <input type={"text"} placeholder={"your discord ID"} onChange={(e) => setDataReaction(e.target.value)} /></>)
     }
@@ -99,10 +112,13 @@ export default function Createpage({ data }) {
             <select value={action} onChange={(e) => setAction(e.target.value)}>
               <option value="">--Please choose an option--</option>
               <option value="A youtuber posts a new video">Get Last video from Youtube channel</option>
+              <option value="Get last qualifying results">Get last qualifying results of F1</option>
               <option value="Get last race results">Result Of the latest F1 race </option>
               <option value="Astronomy picture of the day is available">Get the picture of the day from the NASA</option>
               <option value="It starts/stops freezing">Be aware when the temperature is below 0 degree</option>
               <option value="It starts/stops raining">Be aware when it's raining in your city </option>
+              <option value="The wind exceeds/drops below 80 km/h">Be aware when it's windy in your city </option>
+              <option value="The sun rises/sets">The sun rises/sets </option>
             </select>
           </label>
           {switchAction()}
@@ -116,6 +132,7 @@ export default function Createpage({ data }) {
               <option value="Send you a private message">Get private message on Discord</option>
               <option value="Area's bot sends you a message">Get private message on Telegram</option>
               <option value="Send a message in the general channel with your @">Send a message in a Discord general channel</option>
+              <option value="Send a message in the general channel and ping everyone">Send a message in the general channel and ping everyone</option>
             </select>
           </label>
           {switchReaction()}
