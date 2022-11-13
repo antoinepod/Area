@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -44,7 +44,6 @@ require("./strategies/googleStrategy");
 require("./controllers/user");
 
 app.use(cookieParser(process.env.COOKIE_SECRET));
-
 app.use(
   session({
     secret: "akjjkjnisaiuu8998323jdkadsih892rhoisdfasl",

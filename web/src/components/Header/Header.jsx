@@ -9,7 +9,7 @@ function Header() {
           <span className="title">AREA</span>
           <Link to="/" className="fontDifferentPage">Homepage</Link>
           <Link to="/createpage" className="fontDifferentPage">Create action</Link>
-          <Link to="/linkpage"className="fontDifferentPage">Link account</Link>
+          {/* <Link to="/linkpage"className="fontDifferentPage">Link account</Link> */}
           <button className="signOut" onClick={() => { localStorage.clear(); window.location.href = '/login' }}>Sign out</button>
         </div>
   )

@@ -1,7 +1,7 @@
 import "./App.scss";
-import React, { useContext, useCallback, useState, useEffect } from "react";
-import axios from "axios";
-import { Routes, Route, Redirect } from "react-router-dom";
+import React, { useState } from "react";
+
+import { Routes, Route } from "react-router-dom";
 
 // Components
 import Register from "./components/register/register";

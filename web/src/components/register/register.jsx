@@ -23,7 +23,6 @@ export default function Register() {
         .then(res => {
           console.log(res);
           console.log(res.data);
-          localStorage.setItem("userInfo", JSON.stringify(user));
           window.location.href = '/login'
         })
         .catch(err => {

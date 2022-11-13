@@ -3,8 +3,8 @@ import './Areas.scss'
 import axios from 'axios'
 
 function Areas({ action, reaction, data }) {
-    const [active, setActive] = useState(false)
-
+    const [active, setActive] = useState(data.status)
+    const username = localStorage.getItem("user");	
     useEffect(() => {
         if (data.status === true) {
             setActive(true)
@@ -12,12 +12,12 @@ function Areas({ action, reaction, data }) {
     }, [])
 
     const handleClick = () => {
-        console.log(data)
-        // axios.post(`http://localhost:8080/api/areas/update`, {_id: data._id, status: !active}, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
-        //     .then(res => {
-        //         console.log(res)
-        //         setActive(!active)
-        //     })
+        // console.log(data)
+        axios.post(`http://localhost:8080/api/area/update`, {'username': username, '_id': data._id, status: !active}, { headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` } })
+            .then(res => {
+                console.log(res)
+                setActive(!active)
+            })
         setActive(!active)
     }
 
@@ -33,7 +33,7 @@ function Areas({ action, reaction, data }) {
             }}>
                 {reaction}
             </h1>
-            {active ? <span style={{ color: 'green' }}> Active </span> : <span style={{ color: 'red' }}> Inactive </span>}
+            {active ? <div style={{ color: 'green', justifySelf: 'end'}}> Active </div> : <span style={{ color: 'red' }}> Inactive </span>}
         </div>
     )
 }
