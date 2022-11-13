@@ -96,6 +96,339 @@ We have created 3 folders in our github repository :
 
 # API
 
+**Server**
+
+**Endpoints**
+
+* [Auth](#auth)
+    1. [Signup](#1-signup)
+    1. [Login](#2-login)
+    1. [userInfo](#3-userinfo)
+    1. [Login With Google](#4-login-with-google)
+    1. [isAuthenticated](#5-isauthenticated)
+    1. [Logout](#6-logout)
+    1. [about.json](#7-aboutjson)
+* [Areas](#areas)
+    1. [Create](#1-create)
+    1. [Set status](#2-set-status)
+    1. [Set last action](#3-set-last-action)
+    1. [Delete](#4-delete)
+    1. [Get](#5-get)
+* [Action](#action)
+    1. [Weather](#1-weather)
+    1. [YouTube](#2-youtube)
+    1. [F1](#3-f1)
+    1. [NASA](#4-nasa)
+* [Reaction](#reaction)
+    1. [Telegram](#1-telegram)
+    1. [Discord](#2-discord)
+
+--------
+
+**Auth**
+
+**1. Signup**
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/auth/signup
+```
+
+***Body:***
+
+```js        
+{
+    "username": "Anto",
+    "password": "test"
+}
+```
+
+**2. Login**
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/auth/signup
+```
+
+***Body:***
+
+```js        
+{
+    "username": "Anto",
+    "password": "test"
+}
+```
+
+**3. userInfo**
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: http://localhost:8080/api/auth/me
+```
+
+### 4. Login With Google
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: http://localhost:8080/api/auth/google
+```
+
+
+
+***Body:***
+
+```js        
+{
+    "tokenId": "962351901248-vt8o9io4adohtlihbs3lpdtlichv9kqn.apps.googleusercontent.com"
+}
+```
+
+
+
+### 5. isAuthenticated
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: http://localhost:8080/api/auth/isAuthenticated
+```
+
+
+
+### 6. Logout
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/auth/logout
+```
+
+
+
+***Body:***
+
+```js        
+{
+    
+}
+```
+
+
+
+### 7. about.json
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: http://localhost:8080/about.json
+```
+
+
+
+## Areas
+
+
+
+### 1. Create
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/area/create
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| Content-Type | application/json |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "username": "bbbb",
+    "action": "A youtuber posts a new video",
+    "action_data": "https://www.youtube.com/c/aMOODIEsqueezie",
+    "reaction": "Area's bot sends you a message",
+    "reaction_data": "1764138339"
+}
+```
+
+
+
+**2. Set status**
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/area/update
+```
+
+***Body:***
+
+```js        
+{
+    "username": "test2",
+    "_id": "1668278725225",
+    "status": "true"
+}
+```
+
+**3. Set last action**
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/area/setLastAction
+```
+
+***Body:***
+
+```js        
+{
+    "username": "test2",
+    "_id": "1668278725225",
+    "last_action": "testlastaction"
+}
+```
+
+**4. Delete**
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: RAW
+URL: http://localhost:8080/api/area/delete
+```
+
+***Body:***
+
+```js        
+{
+    "username": "test2",
+    "_id": "1668265246894"
+}
+```
+
+**5. Get**
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: http://localhost:8080/api/area/get
+```
+
+***Body:***
+
+```js        
+{
+    "username": "Anto"
+}
+```
+
+**Actions**
+
+**1. Weather**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+**2. YouTube**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+**3. F1**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+**4. NASA**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+**Reactions**
+
+**1. Telegram**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+**2. Discord**
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
 # Members
 
 Project made by William MALLEVAYS, Antoine PODVIN, Marine POTEAU and Brieuc LAVEUGLE
