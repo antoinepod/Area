@@ -21,6 +21,8 @@ const actionRoutes = require("./routes/action");
 const reactionRoutes = require("./routes/reaction");
 const db = require("./models/index");
 const auth = require("./middlewares/auth");
+const servicesHandler = require("./services/servicesHandler");
+
 // require("./src/strategies/jwtStrategy")
 // require("./src/strategies/localStrategy")
 

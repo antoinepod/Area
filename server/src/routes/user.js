@@ -18,13 +18,29 @@ router.get("/google/callback",
     // Successful authentication, redirect secrets.
     //return a token
     // console.log("req.user", req.user)
-    const token = jwt.sign({user: req.user.id}, process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba");
+    // const token = jwt.sign({user: req.user.id}, process.env.JWT_SECRET || "aaaz-zeazebaeazhaz-ehaebaeba");
     // const token = userCtrl.getToken(req.user);
     // const token = req.user.generateJWT();
     // res.json({token: token});
     res.redirect("http://localhost:8081/");
     }
 );
+
+
+router.get(
+  '/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: "http://localhost:8081/login",
+    session: false,
+  }),
+  (req, res) => {
+    const token = req.user.generateJWT();
+    res.cookie('x-auth-cookie', token);
+    res.redirect(clientUrl);
+  },
+);
+
+
 
 router.post("/login", passport.authenticate('local'), userCtrl.login);
 router.post("/signup", userCtrl.signup);

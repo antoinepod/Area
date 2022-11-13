@@ -7,17 +7,19 @@ var usersTab = [];
 
 var actionsMap = new Map();
 actionsMap.set("Get last race results", "/f1/lastRace");
+actionsMap.set("Get last qualifying results", "/f1/lastQualif");
 actionsMap.set("Astronomy picture of the day is available", "/nasa/lastPicture");
 actionsMap.set("It starts/stops freezing", "/weather/temperature");
 actionsMap.set("It starts/stops raining", "/weather/weather");
+actionsMap.set("The wind exceeds/drops below 80 km/h", "/weather/wind");
+actionsMap.set("The sun rises/sets", "/weather/sun");
 actionsMap.set("A youtuber posts a new video", "/youtube/newVideo");
 
 var reactionsMap = new Map();
 reactionsMap.set("Send a message in the general channel with your @", "/discord/messageInChannel");
+reactionsMap.set("Send a message in the general channel and ping everyone", "/discord/messageEveryone");
 reactionsMap.set("Send you a private message", "/discord/sendPM");
 reactionsMap.set("Area's bot sends you a message", "/telegram/sendMessage");
-// map.set("Tweet a message with your @", "");
-// map.set("Send you a direct message", "");
 
 
 const getUsers = async (req, res) => {
@@ -76,7 +78,7 @@ const executeAreas = async () => {
 
   for (let user of usersTab) {
     console.log("user:", user);
-    await axios({method: "get", url: url + "/area/get", data: {"username": user}})
+    await axios({method: "post", url: url + "/area/get", data: {"username": user}})
       .then((response) => {
         console.log(response.data);
         if (response.data.success === true)
@@ -89,6 +91,6 @@ const executeAreas = async () => {
 };
 
 exports.loop = async () => {
-//   await executeAreas();
-//   setInterval(executeAreas, 10000);
+  // await executeAreas();
+  // setInterval(executeAreas, 10000);
 };

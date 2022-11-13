@@ -33,9 +33,6 @@ export default function ({ navigation }) {
         .then(res => {
           console.log(res);
           console.log(res.data);
-          // const token  =  res.data.token;
-          // localStorage.setItem("token", token);
-          // setAuthToken(token);
           navigation.navigate('Login');
         })
         .catch(err => {
@@ -112,7 +109,7 @@ const styles = StyleSheet.create({
   image: {
     width: "60%",
     marginTop: "20%",
-    marginBottom: "20%",
+    marginBottom: "12%",
     resizeMode: 'contain',
   },
  
@@ -143,7 +140,7 @@ const styles = StyleSheet.create({
   orText: {
     height: "4%",
     color: "grey",
-    marginTop: "4%"
+    marginTop: "3%"
   },
 
   returnBtn: {

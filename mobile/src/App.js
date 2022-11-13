@@ -1,3 +1,4 @@
+import "./components/settings/ignoreWarnings";
 import React, {useState} from 'react';
 import { StyleSheet, DeviceEventEmitter } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
