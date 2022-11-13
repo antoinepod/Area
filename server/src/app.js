@@ -119,31 +119,48 @@ app.get("/about.json", (req, res) => {
           name: "weather",
           actions: [
             {
-              name: "getWeather",
-              description: "Get the weather of a given city",
+              name: "getFreezingWeather",
+              description: "Get the weather when it starts/stops freezing of a given city",
             },
             {
-              name: "getWeatherForecast",
-              description: "Get the weather forecast of a given city",
+              name: "getRainingWeather",
+              description: "Get the weather when it starts/stops raining of a given city",
             },
             {
-              name: "getWeatherForecastByDay",
-              description: "Get the weather forecast of a given city for a given day",
-            }
+              name: "getDayNight",
+              description: "Get if it is day/night of a given city",
+            },
+            {
+              name: "getWindWeather",
+              description: "Get when the wind is over 80km/h of a given city",
+            },
           ]
         },
         {
-          name: "twitter",
+          name: "discord",
           reactions: [
             {
-              name: "sendDm",
-              description: "receive a direct message to a given user",
+              name: "sendDmDiscord",
+              description: "receive a message from a bot",
+            },
+            {
+              name: "sendPublicDm",
+              description: "receive a message from a bot in the 'general' channel with your @username",
+            },
+            {
+              name: "sendEveryoneDm",
+              description: "receive a message from a bot in the 'general' channel with @everyone",
             },
           ],
         },
         {
           name: "telegram",
-          description: "receive a message to a given user",
+          reactions: [
+            {
+              name: "sendDmTelegram",
+              description: "receive a message from a bot",
+            }
+          ]
         },
         {
           name: "f1",
@@ -151,6 +168,10 @@ app.get("/about.json", (req, res) => {
             {
               name: "getRaceResults",
               description: "Get the results of the last race",
+            },
+            {
+              name: "getRaceQualifyingResults",
+              description: "Get the qualifying results of the last race",
             },
           ],
         },
