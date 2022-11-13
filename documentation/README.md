@@ -175,7 +175,7 @@ Type: RAW
 URL: http://localhost:8080/api/auth/me
 ```
 
-### 4. Login With Google
+**4. Login With Google**
 
 ***Endpoint:***
 
@@ -185,8 +185,6 @@ Type: RAW
 URL: http://localhost:8080/api/auth/google
 ```
 
-
-
 ***Body:***
 
 ```js        
@@ -195,11 +193,7 @@ URL: http://localhost:8080/api/auth/google
 }
 ```
 
-
-
-### 5. isAuthenticated
-
-
+**5. isAuthenticated**
 
 ***Endpoint:***
 
@@ -209,11 +203,7 @@ Type:
 URL: http://localhost:8080/api/auth/isAuthenticated
 ```
 
-
-
-### 6. Logout
-
-
+**6. Logout**
 
 ***Endpoint:***
 
@@ -223,8 +213,6 @@ Type: RAW
 URL: http://localhost:8080/api/auth/logout
 ```
 
-
-
 ***Body:***
 
 ```js        
@@ -233,11 +221,7 @@ URL: http://localhost:8080/api/auth/logout
 }
 ```
 
-
-
-### 7. about.json
-
-
+**7. about.json**
 
 ***Endpoint:***
 
@@ -247,15 +231,9 @@ Type:
 URL: http://localhost:8080/about.json
 ```
 
+**Areas**
 
-
-## Areas
-
-
-
-### 1. Create
-
-
+**1. Create**
 
 ***Endpoint:***
 
@@ -265,14 +243,11 @@ Type: RAW
 URL: http://localhost:8080/api/area/create
 ```
 
-
 ***Headers:***
 
 | Key | Value | Description |
 | --- | ------|-------------|
 | Content-Type | application/json |  |
-
-
 
 ***Body:***
 
@@ -285,8 +260,6 @@ URL: http://localhost:8080/api/area/create
     "reaction_data": "1764138339"
 }
 ```
-
-
 
 **2. Set status**
 
