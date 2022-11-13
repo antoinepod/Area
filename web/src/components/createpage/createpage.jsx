@@ -11,7 +11,8 @@ export default function Createpage({data}) {
   const [name, setName] = useState("");
   const [action, setAction] = useState("");
   const [reaction, setReaction] = useState("");
-
+  const [dataAction, setDataAction] = useState([]);
+  const [dataReaction, setDataReaction] = useState([]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,18 +24,35 @@ export default function Createpage({data}) {
       <Header/>
       <div className="cardsContainer">
         <form className="createpageForm" onSubmit={handleSubmit}>
-        <label>
+        <label style={{
+          color: "white",
+        }}>
         Choose your Action
-          <select value={action} onChange={(e)=>setAction(e)}>
-            <option value="">Get Last video from Youtube channel</option>
-            <option value="">Result Of the latest F1 race </option>
+          <select value={action} onChange={(e)=>{setAction(e);
+            e.preventDefault();}}>
+            <option value="A youtuber posts a new video">Get Last video from Youtube channel</option>
+            <option value="Get last race results">Result Of the latest F1 race </option>
+            <option value="Astronomy picture of the day is available">Get the picture of the day from the NASA</option>
+            <option value="It starts/stops freezing">Be aware when the temperature is below 0 degree</option>
+            <option value="It starts/stops raining">Be aware when it's raining in your city </option>
+            {/* <option value=""></option> */}
+          </select>
+        </label>
+        <label style={{
+          color: "white",
+        }}>
+        Choose your Reaction
+          <select value={reaction} onChange={(e)=>setReaction(e)}>
+            <option value="Send you a private message">Get private message on Discord</option>
+            <option value="Area's bot sends you a message">Get private message on Telegram</option>
+            <option value="Send a message in the general channel with your @"></option>
             <option value=""></option>
             <option value=""></option>
-
+            <option value=""></option>
           </select>
         </label>
         </form>
-      </div>
+        </div>
     </div>
   );
 }

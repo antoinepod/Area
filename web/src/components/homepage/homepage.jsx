@@ -56,7 +56,7 @@ export default function Homepage({ user, setUser }) {
           {
             (data.areas.length !== 0) ?
             data.areas.map((item, n) => {
-              return <Areas key={n} action={data.areas[n].action} reaction={data.areas[n].reaction} />
+              return <Areas key={n} action={data.areas[n].action} reaction={data.areas[n].reaction} id={data.areas[n].id}/>
             })
             :  <div className="noArea">You don't have any area yet</div>
           }
