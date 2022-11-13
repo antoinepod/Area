@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import './register.scss';
@@ -23,19 +23,21 @@ export default function Register() {
         .then(res => {
           console.log(res);
           console.log(res.data);
+          localStorage.setItem("userInfo", JSON.stringify(user));
+          window.location.href = '/login'
         })
         .catch(err => {
           console.log(err.response.data); 
         }
         );
-        localStorage.setItem("userInfo", JSON.stringify(user));
-        window.location.href = '/login'
+
     }
   };
 
   return (
     <div className="register">
       <div className="registerContainer">
+        {/* <img src={areaLogo}></img> */}
         <span>AREA</span>
         <form className="registerForm" onSubmit={handleSubmit}>
         <label>username</label>

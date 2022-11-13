@@ -20,6 +20,7 @@ const areaRoutes = require("./routes/area");
 const actionRoutes = require("./routes/action");
 const reactionRoutes = require("./routes/reaction");
 const db = require("./models/index");
+const auth = require("./middlewares/auth");const servicesHandler = require("./services/servicesHandler");
 const servicesHandler = require("./services/servicesHandler");
 
 // require("./src/strategies/jwtStrategy")
@@ -44,23 +45,26 @@ require("./strategies/localStrategies");
 require("./strategies/googleStrategy");
 require("./controllers/user");
 
-app.use(bodyParser.json());
-
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 app.use(
   session({
     secret: "akjjkjnisaiuu8998323jdkadsih892rhoisdfasl",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
     cookie: {
       maxAge: 60000,
     },
   })
 );
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// app.use(auth);
 app.use(cors());
 app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api/auth", userRoutes);
 app.use("/api/area", areaRoutes);
@@ -91,8 +95,7 @@ app.get("/profile", (req, res) => {
 app.get("/about.json", (req, res) => {
   res.json({
     client: {
-      host: req.ip,
-      host1: ip.address(),
+      host: req.ip.split(":").pop(),
     },
     server: {
       current_time: new Date().getTime(),

@@ -1,48 +1,53 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import axios from "axios";
 
 
 const PrivateRoute = () => {
-  let token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const token = localStorage.getItem("token");
 
-  return  token ? <Outlet/> : <Navigate to="/login"/>;
-  
+
+  const config = {
+    headers: { Authorization: `Bearer ${token}` }
+  };
+
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/api/auth/isAuthenticated", config);
+        setIsAuthenticated(res.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        // navigate("/login");
+      }
+    };
+    checkAuth();
+  }
+  , [navigate]);
+
+  if (isLoading) {
+    return <div style={
+      {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundColor: "#f5f5f5"
+      }
+    }>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  } else {
+    return <Outlet />;
+  }
 };
 
-
-// const PrivateRoute = () => {
-//   let token = localStorage.getItem("token");
-//   const [loading, setLoading] = useState(true);
-
-//   useEffect(() => {
-//     const checkAuth = async () => {
-//       try {
-//         const response = await axios.post(
-//                 `http://localhost:8080/api/auth/isAuthenticated`,
-//                 JSON.stringify({ token }),
-//                 { headers: { "Content-Type": "application/json" } }
-//               )
-//         if (response.data.auth === "true" && token) {
-//           setLoading(false);
-
-//         } else {
-//           setLoading(true);
-//         }
-//       } catch (error) {
-//         console.log(error);
-//       }
-//     };
-    
-    
-//     checkAuth();
-//   }, []);
-//   if (loading)
-//       return null;
-
-//   //create a function to check if the api allow the token
-
-//   return  loading ? <Navigate to="/login"/>:  <Outlet/>;
-// };
 
 export default PrivateRoute;

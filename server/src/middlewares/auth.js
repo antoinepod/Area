@@ -8,7 +8,7 @@ const verifyToken = (req, res, next) => {
     }
     jwt.verify(token, SECRET_KEY, (error, decoded) => {
         if (error) {
-            return res.status(401).json({ error: "Unauthorized" });
+            return res.status(404).json({ error: "Unauthorized" });
         }
         req.user = decoded;
         res.json({ auth: "true" });
@@ -17,16 +17,6 @@ const verifyToken = (req, res, next) => {
     );
     }
 
-// function verifyToken(req, res, next) {
-//   const authHeader = req.headers["authorization"];
-//   const token = authHeader && authHeader.split(" ")[1];
-//   if (token == null) return res.sendStatus(403);
-//   jwt.verify(token, SECRET_KEY, (err, user) => {
-//     if (err) return res.sendStatus(404);
-//     req.user = user;
-//     next();
-//   });
-// }
 
 module.exports = {
   verifyToken,
