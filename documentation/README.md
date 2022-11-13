@@ -70,6 +70,10 @@ We have created 3 folders in our github repository :
 
 (2) Trigger every time it starts/stops raining.
 
+(3) Trigger every time it is day/night.
+
+(4) Trigger every time when the wind is over 80km/h.
+
 ***F1*** : 
 
 (1) Trigger every time new results available.
@@ -87,6 +91,8 @@ We have created 3 folders in our github repository :
 (1) The bot sends you a private message.
 
 (2) The bot sends you a public message in the 'general' channel with your @username.
+
+(3) The bot sends you a public message in the 'general' channel with @everyone.
 
 # API
 
