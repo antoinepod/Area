@@ -19,7 +19,10 @@ const userSchema = mongoose.Schema({
   areas: [{
     _id: { type: String, require: true, trim: true },
     action: { type: String, required: true, trim: true },
+    action_data: { type: String, trim: true },
+    last_action: { type: String, required: true, trim: true },
     reaction: { type: String, required: true, trim: true },
+    reaction_data: { type: String, trim: true },
     status: { type: Boolean, required: true, trim: true },
     }],
 }, { collection: "users" });

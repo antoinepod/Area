@@ -5,11 +5,11 @@ const weather = require('../services/weather/actions')
 const f1 = require('../services/f1/actions')
 const nasa = require('../services/nasa/actions')
 
-router.post('/youtube/newVideo', youtube.newVideo);
-router.post('/weather/temperature', weather.getTemperature);
-router.post('/weather/weather', weather.getWeather);
-router.post('/f1/lastRace', f1.getLastRace);
-router.post('/nasa/lastPicture', nasa.getLastPicture);
+router.get('/f1/lastRace', f1.getLastRace);
+router.get('/nasa/lastPicture', nasa.getLastPicture);
+router.get('/weather/temperature', weather.getTemperature);
+router.get('/weather/weather', weather.getWeather);
+router.get('/youtube/newVideo', youtube.newVideo);
 
 
 module.exports = router

@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const passport = require("passport");
@@ -20,6 +20,7 @@ const areaRoutes = require("./routes/area");
 const actionRoutes = require("./routes/action");
 const reactionRoutes = require("./routes/reaction");
 const db = require("./models/index");
+const servicesHandler = require("./services/servicesHandler");
 
 // require("./src/strategies/jwtStrategy")
 // require("./src/strategies/localStrategy")
@@ -161,5 +162,7 @@ app.get("/about.json", (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+servicesHandler.loop();
 
 module.exports = app;
