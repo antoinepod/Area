@@ -13,9 +13,6 @@ export default function Cards({title, action, cards, cards2, cards3, cards4, car
       <button className='chooseCards2' style={{color: isToggle ? '#3A4065': ''}} onClick={() => setisToggle((curr)=> !curr)}>{cards2}</button>
       <button className='chooseCards2' style={{color: isToggle ? '#3A4065': ''}} onClick={() => setisToggle((curr)=> !curr)}>{cards3}</button>
       <button className='chooseCards2' style={{color: isToggle ? '#3A4065': ''}} onClick={() => setisToggle((curr)=> !curr)}>{cards4}</button>
-      {/* <Link to="/yougram" className="link">
-          {title}
-      </Link> */}
     </div>
   )
 }

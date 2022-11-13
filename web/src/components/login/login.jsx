@@ -29,11 +29,9 @@ export default function Login() {
 
   const handleGoogleLogin = async googleData => {
     const res = await axios.post('http://localhost:8080/api/auth/google');
-    // const data = await res.json()
     localStorage.setItem('username', username);
     const token  =  res.data.token;
     localStorage.setItem("token", res.data);
-    // console.log(data)
   } 
 
 return (

@@ -36,7 +36,6 @@ export default function Register() {
   return (
     <div className="register">
       <div className="registerContainer">
-        {/* <img src={areaLogo}></img> */}
         <span>AREA</span>
         <form className="registerForm" onSubmit={handleSubmit}>
         <label>username</label>

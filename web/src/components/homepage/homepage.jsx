@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import './homepage.scss';
-
 import Areas from "./Areas/Areas";
-
 import Header from "../Header/Header";
 
 
@@ -17,7 +15,6 @@ export default function Homepage({ user, setUser }) {
     axios.get(`http://localhost:8080/api/auth/me`, { headers: { 'Authorization': `Bearer ${token}` } })
       .then(res => {
         console.log(res);
-        // console.log(res.data);
         localStorage.setItem("user", res.data.username);
         if (res.status === 401) {
           window.location.reload()
