@@ -18,7 +18,8 @@ import Dialog from "react-native-dialog";
 import axios from 'axios';
 import { FAB } from "react-native-paper";
 import SyncStorage from 'sync-storage';
-import AnimatedSplash from 'react-native-animated-splash';
+import { GoogleSignin } from '@react-native-community/google-signin';
+
 
 export default function ({ navigation }) {
   const [username, setUsername] = useState("");
@@ -27,7 +28,51 @@ export default function ({ navigation }) {
   const [tmpIp, setTmpIp] = useState("");
   const [hidePass, setHidePass] = useState(true);
 
+  const [userGoogleInfo, setUserGoogleInfo] = useState({});
+
+  const signInWithGoogle = async () => {
+    if (SyncStorage.get('ip') === undefined || SyncStorage.get('ip') === "") {
+      ToastAndroid.show('Please configure server IP before', ToastAndroid.SHORT);
+    } else {
+      try {
+        await GoogleSignin.hasPlayServices();
+        const userInfo = await GoogleSignin.signIn();
+        console.log("USER INFOS", userInfo);
+        SyncStorage.set('token', userInfo.idToken);
+        await getGoogleUserInfos();
+        SyncStorage.set('user', userInfo.user);
+        navigation.navigate('Home');
+      } catch (error) {
+        console.log("error: ", error);
+      }
+    }
+  };
+
+  const getGoogleUserInfos = async () => {
+    try {
+      const userInfo = await GoogleSignin.signInSilently();
+      SyncStorage.set('user', userInfo.user);
+      console.log("userInfo", userInfo);
+    } catch (error) {
+      console.log("error: ", error);
+    }
+  };
+
+  const isSignedInWithGoogle = async () => {
+    const isSignedIn = await GoogleSignin.isSignedIn();
+    if (!!isSignedIn)
+      getGoogleUserInfos();
+    else
+      console.log("not signed in");
+  };
+
   React.useEffect(() => {
+    GoogleSignin.configure({
+      webClientId: '709856542791-bsltkrf45ehr7ql3dfll5fhqgl65jnsn.apps.googleusercontent.com',
+      offlineAccess: true,
+      forceCodeForRefreshToken: true
+    });
+    isSignedInWithGoogle();
     setTimeout(() => {
       if (SyncStorage.get('token') === undefined || SyncStorage.get('token') === "")
         navigation.navigate('Login');
@@ -35,7 +80,6 @@ export default function ({ navigation }) {
         navigation.navigate('Home');
     }, 400);
   }, []);
-
 
   const handleIpOK = () => {
     if (tmpIp === "")
@@ -74,18 +118,13 @@ export default function ({ navigation }) {
         .then(res => {
           console.log(res);
           console.log(res.data);
-          // const token  =  res.data.token;
-          // localStorage.setItem("token", token);
-          // setAuthToken(token);
           SyncStorage.set('token', res.data.token);
+          SyncStorage.set('username', username);
           navigation.navigate('Home');
         })
         .catch(err => {
-          if (err !== undefined) {
-            ToastAndroid.show(JSON.stringify(err.response.data.error).replaceAll('"', ''), ToastAndroid.SHORT);
-            console.log(err.response);
-          } else
-            ToastAndroid.show('Can not connect to server', ToastAndroid.SHORT);
+          console.log(err.response);
+          ToastAndroid.show("Username or password incorrect", ToastAndroid.SHORT);
         });
     }
   };
@@ -145,12 +184,17 @@ export default function ({ navigation }) {
           style={{backgroundColor: 'transparent', marginTop: "2%"}}
         />
       </View>
- 
+
       <TouchableOpacity style={styles.loginBtn} onPress={handleLogin}>
         <Text>LOGIN</Text>
       </TouchableOpacity>
 
       <Text style={styles.orText}>OR</Text>
+
+      <TouchableOpacity style={styles.loginWithGoogleBtn} onPress={signInWithGoogle}>
+        <Image source={{uri: "https://img.icons8.com/color/400/null/google-logo.png"}} style={{ width: 30, height: 30, marginEnd: "3%" }}/>
+        <Text style={{color: "grey"}}>LOGIN WITH GOOGLE</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.registerBtn} onPress={handleGoRegister}>
         <Text>REGISTER</Text>
@@ -179,7 +223,7 @@ const styles = StyleSheet.create({
   image: {
     width: "60%",
     marginTop: "20%",
-    marginBottom: "20%",
+    marginBottom: "12%",
     resizeMode: 'contain',
   },
  
@@ -212,8 +256,7 @@ const styles = StyleSheet.create({
     height: "6%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#3A4065",
-    marginTop: "20%"
+    backgroundColor: "#3A4065"
   },
 
   orText: {
@@ -222,13 +265,25 @@ const styles = StyleSheet.create({
     marginTop: "4%"
   },
 
+  loginWithGoogleBtn: {
+    flexDirection: "row", 
+    width: "80%",
+    borderRadius: 25,
+    height: "6%",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    marginTop: "1%"
+  },
+
   registerBtn: {
     width: "80%",
     borderRadius: 25,
     height: "6%",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#3A4065"
+    backgroundColor: "#3A4065",
+    marginTop: "4%"
   },
 
   fab: {

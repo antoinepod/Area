@@ -13,10 +13,6 @@ const ServiceList = ({service, icon, colorOn, items, selected, select}) => {
       color = 'grey';
   };
 
-  items.map((item) => {
-    console.log(item);
-  });
-
   function getIcon(item) {
     if (selected == item)
       return "circle-slice-8";

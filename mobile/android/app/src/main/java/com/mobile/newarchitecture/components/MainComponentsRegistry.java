@@ -1,4 +1,4 @@
-package com.mobile.newarchitecture.components;
+package com.epitech_anto.area.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

@@ -1,4 +1,4 @@
-package com.mobile;
+package com.epitech_anto.area;
 
 import android.os.Bundle;
 import com.facebook.react.ReactActivity;
