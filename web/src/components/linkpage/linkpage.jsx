@@ -14,7 +14,7 @@ export default function Linkpage() {
       <Header/>
       <div className="cardsContainer">
         <div className="font">Link Your Accounts</div>
-        <Slideshow/>
+        {/* <Slideshow/> */}
       </div>
     </div>
   );
