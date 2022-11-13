@@ -1,4 +1,4 @@
-package com.mobile.newarchitecture;
+package com.epitech_anto.area.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.mobile.BuildConfig;
-import com.mobile.newarchitecture.components.MainComponentsRegistry;
-import com.mobile.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.epitech_anto.area.BuildConfig;
+import com.epitech_anto.area.newarchitecture.components.MainComponentsRegistry;
+import com.epitech_anto.area.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
