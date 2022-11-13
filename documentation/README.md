@@ -20,4 +20,76 @@ After subscribing to different services, the authenticated user can create some 
 > - Action : A received notification from an account we follow
 > - REAction : A message is sent on Telegram
 
+# Summary
 
+**- General informations**
+
+**- Folder architecture**
+
+**- Branchs**
+
+**- Services**
+
+**- API**
+
+# General informations
+
+We were in a group of 4 persons to complete the project in 2 months.
+
+We used Node.js, React.js and React native to develop our project.
+
+The compilation is done with Docker :
+
+> docker-compose up --build
+
+# Folder architecture
+
+We have created 3 folders in our github repository :
+
+***server*** which act as the master node of the application. It contains all the logic of the actions and reactions. (The use of Node.js and Express.js)
+
+***web*** which expose a website to interact with the AREA. (The use of React.js)
+
+***mobile*** which expose a mobile application to interact with the AREA. (The use of React Native to be cross-platform)
+
+![image](assets/folderArchitecture.png)
+
+# Branchs
+
+![image](assets/branchs.png)
+
+# Services
+
+**Actions**
+
+***Youtube*** : Trigger every time a video is posted by a specified user.
+
+***Weather*** : 
+
+(1) Trigger every time it starts/stops freezing.
+
+(2) Trigger every time it starts/stops raining.
+
+***F1*** : 
+
+(1) Trigger every time new results available.
+
+(2) Trigger every time new qualifying results available.
+
+***NASA*** : Trigger every time a new photo of the day is posted.
+
+**Reactions**
+
+***Telegram*** : The bot sends you a private message.
+
+***Discord*** :
+
+(1) The bot sends you a private message.
+
+(2) The bot sends you a public message in the 'general' channel with your @username.
+
+# API
+
+# Members
+
+Project made by William MALLEVAYS, Antoine PODVIN, Marine POTEAU and Brieuc LAVEUGLE
