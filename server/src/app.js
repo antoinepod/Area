@@ -186,4 +186,6 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
+servicesHandler.loop();
+
 module.exports = app;

@@ -92,5 +92,5 @@ const executeAreas = async () => {
 
 exports.loop = async () => {
   await executeAreas();
-  setInterval(executeAreas, 30000);
+  setInterval(executeAreas, 15000);
 };
